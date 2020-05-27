@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("paises")
+@RequestMapping("v1/paises")
 class PaisController(val service: PaisService) {
 
     @PostMapping
