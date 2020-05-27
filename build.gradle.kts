@@ -22,8 +22,15 @@ dependencies {
 
 	// Spring Security
 //	implementation("org.springframework.boot:spring-boot-starter-security")
+
+	// Spring Web
 	implementation("org.springframework.boot:spring-boot-starter-web")
+
+	// Jackson Module for Kotlin
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+	// Bean Validations
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 
 	// Kotlin
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
