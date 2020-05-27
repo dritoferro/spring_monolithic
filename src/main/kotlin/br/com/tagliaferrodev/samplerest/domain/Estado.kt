@@ -1,31 +1,30 @@
 package br.com.tagliaferrodev.samplerest.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
-import javax.validation.constraints.Email
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 @Entity
-@Table(name = "usuarios")
-data class Usuario(
+@Table(name = "estados")
+data class Estado(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long? = null,
 
         @field:NotNull
-        @Column(unique = true)
         @field:Size(min = 3, max = 255)
-        val apelido: String? = null,
+        val nome: String? = null,
 
         @field:NotNull
-        @Column(unique = true)
-        @field:Email
-        @field:Size(min = 3, max = 255)
-        val email: String? = null,
+        @field:Size(min = 1, max = 3)
+        val sigla: String? = null,
 
         @field:NotNull
-        val senha: String? = null,
+        @ManyToOne
+        val pais: Pais? = null,
 
-        @field:NotNull
-        val bloqueado: Boolean? = false
+        @OneToMany(mappedBy = "estado")
+        @JsonIgnore
+        val municipios: List<Municipio>? = emptyList()
 )
