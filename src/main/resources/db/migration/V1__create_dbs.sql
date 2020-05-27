@@ -71,7 +71,7 @@ CREATE TABLE `pessoas`
     `data_nascimento`  DATE         DEFAULT NULL,
     `cidade_natal_id`  BIGINT(20)   DEFAULT NULL,
     `nacionalidade_id` BIGINT(20)   DEFAULT NULL,
-    `sexo`             TINYINT(1)   NOT NULL,
+    `sexo`             INTEGER(1)   NOT NULL,
     `foto`             VARCHAR(255) DEFAULT NULL
 
 ) ENGINE = InnoDB
@@ -108,7 +108,7 @@ CREATE TABLE `jogadores`
     `pessoa_id`         BIGINT(20)   NOT NULL,
     `time_id`           BIGINT(20)   NOT NULL,
     `salario`           DOUBLE DEFAULT NULL,
-    `posicao`           TINYINT(1)   NOT NULL,
+    `posicao`           INTEGER(1)   NOT NULL,
     `data_contratacao`  DATE         NOT NULL,
     `data_demissao`     DATE   DEFAULT NULL
 

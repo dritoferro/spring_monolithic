@@ -20,6 +20,9 @@ dependencies {
 	// Spring Data
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
+	// Flyway - Migrations
+	implementation("org.flywaydb:flyway-core")
+
 	// Spring Security
 //	implementation("org.springframework.boot:spring-boot-starter-security")
 

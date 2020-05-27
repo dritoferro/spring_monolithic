@@ -29,7 +29,7 @@ data class Jogador(
         val time: Time? = null,
 
         @field:NotNull
-        @Enumerated(EnumType.ORDINAL)
+        @field:Enumerated(EnumType.ORDINAL)
         val posicao: Posicao? = null,
 
         @field:NotNull
