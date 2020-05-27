@@ -1,1 +1,1 @@
-rootProject.name = "samplerest"
+rootProject.name = "sample-rest"
