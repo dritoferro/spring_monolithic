@@ -27,5 +27,8 @@ data class Time(
         val verbaPrincipal: Double? = null,
 
         @OneToOne
-        val treinador: Pessoa? = null
+        val treinador: Pessoa? = null,
+
+        @OneToMany(mappedBy = "time")
+        val jogadores: MutableList<Jogador>? = mutableListOf()
 )

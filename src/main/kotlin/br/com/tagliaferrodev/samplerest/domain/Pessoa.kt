@@ -37,5 +37,9 @@ data class Pessoa(
 
         @OneToOne(mappedBy = "treinador")
         @JsonIgnore
-        val time: Time? = null
+        val time: Time? = null,
+
+        @OneToOne(mappedBy = "pessoa")
+        @JsonIgnore
+        val jogador: Jogador? = null
 )

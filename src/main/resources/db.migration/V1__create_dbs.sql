@@ -100,3 +100,23 @@ ALTER TABLE `times`
 
 ALTER TABLE `times`
     ADD CONSTRAINT `fk_times_pessoas_treinador_id` FOREIGN KEY (`treinador_id`) REFERENCES `pessoas` (`id`);
+
+CREATE TABLE `jogadores`
+(
+    `id`                BIGINT(20)   NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `nome_profissional` VARCHAR(255) NOT NULL,
+    `pessoa_id`         BIGINT(20)   NOT NULL,
+    `time_id`           BIGINT(20)   NOT NULL,
+    `salario`           DOUBLE DEFAULT NULL,
+    `posicao`           TINYINT(1)   NOT NULL,
+    `data_contratacao`  DATE         NOT NULL,
+    `data_demissao`     DATE   DEFAULT NULL
+
+) ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE `jogadores`
+    ADD CONSTRAINT `fk_jogadores_pessoas_pessoa_id` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoas` (`id`);
+
+ALTER TABLE `jogadores`
+    ADD CONSTRAINT `fk_jogadores_times_time_id` FOREIGN KEY (`time_id`) REFERENCES `times` (`id`);
