@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RestController("usuarios")
+@RestController
+@RequestMapping("usuarios")
 class UsuarioController(val service: UsuarioService) {
 
     @PostMapping
@@ -21,6 +22,6 @@ class UsuarioController(val service: UsuarioService) {
 
     @DeleteMapping("{id}")
     fun deleteUser(@PathVariable id: Long): ResponseEntity<Unit> {
-        return ResponseEntity.ok(service.delete(id))
+        return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }
