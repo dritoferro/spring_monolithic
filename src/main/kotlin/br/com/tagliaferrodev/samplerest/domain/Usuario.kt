@@ -1,5 +1,6 @@
 package br.com.tagliaferrodev.samplerest.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotNull
@@ -24,6 +25,7 @@ data class Usuario(
         val email: String? = null,
 
         @field:NotNull
+        @JsonIgnore
         val senha: String? = null,
 
         @field:NotNull
