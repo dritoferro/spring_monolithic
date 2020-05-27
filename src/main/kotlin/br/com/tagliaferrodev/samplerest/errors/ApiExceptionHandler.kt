@@ -28,6 +28,6 @@ class ApiExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(Exception::class)
     fun handleGenericException(ex: Exception) {
-
+        //TODO("Not implemented yet")
     }
 }
