@@ -18,12 +18,14 @@ class ApiExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(EntityNotFoundException::class)
     fun handleNotFound(ex: EntityNotFoundException): ResponseEntity<ApiError> {
-        return ResponseEntity(HttpStatus.NOT_FOUND)
+        val error = ApiError(status = HttpStatus.NOT_FOUND, message = ex.message)
+        return sendResponse(error)
     }
 
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleIllegalArgument(ex: IllegalArgumentException): ResponseEntity<ApiError> {
-        return ResponseEntity(HttpStatus.BAD_REQUEST)
+        val error = ApiError(status = HttpStatus.BAD_REQUEST, message = ex.message)
+        return sendResponse(error)
     }
 
     @ExceptionHandler(ConstraintViolationException::class)
