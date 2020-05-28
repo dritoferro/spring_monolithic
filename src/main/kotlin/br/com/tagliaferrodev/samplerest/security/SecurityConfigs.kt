@@ -20,8 +20,13 @@ class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl) : 
             http.cors().and().csrf().disable()
 
             http.authorizeRequests().anyRequest().permitAll()
+
             //TODO fazer o AuthenticationFilter
+            http.addFilter(SecAuthenticationFilter())
+
             //TODO fazer o AuthorizationFilter
+            http.addFilter(SecAuthorizationFilter(authenticationManager()))
+
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         }
     }
