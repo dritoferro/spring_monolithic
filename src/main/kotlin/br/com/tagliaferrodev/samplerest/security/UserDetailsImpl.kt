@@ -15,6 +15,10 @@ class UserDetailsImpl(
         private val senha: String? = ""
 ) : UserDetails {
 
+    var token: String = ""
+
+    var tokenExpiration: Long = 0
+
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return mutableListOf(SimpleGrantedAuthority("ADMIN"), SimpleGrantedAuthority("USER"))
     }

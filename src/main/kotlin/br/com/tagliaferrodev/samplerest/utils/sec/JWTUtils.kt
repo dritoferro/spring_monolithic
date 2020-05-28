@@ -16,6 +16,11 @@ class JWTUtils {
     @Value("\${jwt.expiration}")
     val expiration: Long = 0
 
+    private fun getClaims(token: String) = Jwts.parser()
+            .setSigningKey(secret.toByteArray())
+            .parseClaimsJws(token)
+            .body
+
     fun generateToken(user: UserDetailsImpl): String {
         return Jwts.builder()
                 .setSubject(user.username)
@@ -24,5 +29,7 @@ class JWTUtils {
                 .signWith(SignatureAlgorithm.HS512, secret.toByteArray())
                 .compact()
     }
+
+    fun getTokenExpiration(token: String) = getClaims(token)?.expiration?.time ?: 0
 
 }

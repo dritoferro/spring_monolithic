@@ -1,19 +1,23 @@
 package br.com.tagliaferrodev.samplerest.security
 
+import br.com.tagliaferrodev.samplerest.utils.sec.JWTUtils
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl) : WebSecurityConfigurerAdapter() {
+class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl,
+                      private val jwtUtils: JWTUtils) : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
         http?.let {
@@ -22,12 +26,19 @@ class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl) : 
             http.authorizeRequests().anyRequest().permitAll()
 
             //TODO fazer o AuthenticationFilter
-            http.addFilter(SecAuthenticationFilter())
+            http.addFilter(SecAuthenticationFilter(jwtUtils, authenticationManager()))
 
             //TODO fazer o AuthorizationFilter
             http.addFilter(SecAuthorizationFilter(authenticationManager()))
 
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        }
+    }
+
+    override fun configure(auth: AuthenticationManagerBuilder?) {
+        auth?.let {
+            auth.userDetailsService(userDetailsService)
+                    .passwordEncoder(BCryptPasswordEncoder())
         }
     }
 
