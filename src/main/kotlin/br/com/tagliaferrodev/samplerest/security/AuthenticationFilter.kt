@@ -18,8 +18,8 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class SecAuthenticationFilter(private val jwtUtils: JWTUtils,
-                              private val authManager: AuthenticationManager) : UsernamePasswordAuthenticationFilter(), AuthenticationFailureHandler {
+class AuthenticationFilter(private val jwtUtils: JWTUtils,
+                           private val authManager: AuthenticationManager) : UsernamePasswordAuthenticationFilter(), AuthenticationFailureHandler {
 
     override fun onAuthenticationFailure(request: HttpServletRequest?, response: HttpServletResponse?, exception: AuthenticationException?) {
         val error = ApiError(HttpStatus.UNAUTHORIZED, "Usuário e/ou senha inválidos.")
@@ -34,7 +34,6 @@ class SecAuthenticationFilter(private val jwtUtils: JWTUtils,
 
         setAuthenticationFailureHandler(this)
 
-        //TODO confirmar se obter o authenticationManager aqui vai funcionar
         return authManager.authenticate(authToken)
     }
 

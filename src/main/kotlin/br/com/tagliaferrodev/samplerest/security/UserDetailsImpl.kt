@@ -33,5 +33,5 @@ class UserDetailsImpl(
 
     override fun isAccountNonExpired() = true
 
-    override fun isAccountNonLocked() = bloqueado ?: false
+    override fun isAccountNonLocked() = true
 }

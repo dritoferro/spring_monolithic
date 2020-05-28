@@ -26,10 +26,10 @@ class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl,
             http.authorizeRequests().anyRequest().permitAll()
 
             //TODO fazer o AuthenticationFilter
-            http.addFilter(SecAuthenticationFilter(jwtUtils, authenticationManager()))
+            http.addFilter(AuthenticationFilter(jwtUtils, authenticationManager()))
 
             //TODO fazer o AuthorizationFilter
-            http.addFilter(SecAuthorizationFilter(authenticationManager()))
+            http.addFilter(AuthorizationFilter(authenticationManager()))
 
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         }

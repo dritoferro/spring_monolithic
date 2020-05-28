@@ -8,5 +8,5 @@ import java.util.*
 @Repository
 interface UsuarioRepository : JpaRepository<Usuario, Long> {
 
-    fun findByEmailOrApelido(email: String, apelido: String): Optional<Usuario>
+    fun findByEmailOrApelidoAndBloqueadoFalse(email: String, apelido: String): Optional<Usuario>
 }

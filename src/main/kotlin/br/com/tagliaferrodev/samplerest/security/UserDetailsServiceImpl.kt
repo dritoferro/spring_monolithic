@@ -13,11 +13,11 @@ class UserDetailsServiceImpl(private val service: UsuarioService) : UserDetailsS
         if (username.isNullOrBlank()) {
             throw UnauthorizedException("Usuário não pode estar em branco")
         }
-        val usuario = service.findByEmailOrApelido(username)
+        val usuario = service.findForLogin(username)
 
         return UserDetailsImpl(
                 id = usuario.id,
-                nome = usuario.apelido,
+                nome = usuario.nome,
                 apelido = usuario.apelido,
                 email = usuario.email,
                 senha = usuario.senha,
