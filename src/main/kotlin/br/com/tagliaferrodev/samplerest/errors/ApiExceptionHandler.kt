@@ -42,12 +42,14 @@ class ApiExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(DataIntegrityViolationException::class)
     fun handleDataIntegrityViolation(ex: DataIntegrityViolationException): ResponseEntity<ApiError> {
-        val error = ApiError(status = HttpStatus.BAD_REQUEST, message = "Houve algum erro na camada de dados", debugMessage = ex.message)
+        val error = ApiError(status = HttpStatus.BAD_REQUEST, message = "Houve algum erro na camada de dados", debugMessage = ex.cause?.cause?.message
+                ?: ex.message)
         return sendResponse(error)
     }
 
     @ExceptionHandler(Exception::class)
-    fun handleGenericException(ex: Exception) {
-        //TODO("Not implemented yet")
+    fun handleGenericException(ex: Exception): ResponseEntity<ApiError> {
+        val error = ApiError(status = HttpStatus.BAD_REQUEST, message = "Erro não mapeado", debugMessage = ex.message)
+        return sendResponse(error)
     }
 }
