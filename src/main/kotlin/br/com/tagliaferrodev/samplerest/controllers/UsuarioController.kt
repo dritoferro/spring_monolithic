@@ -7,13 +7,14 @@ import br.com.tagliaferrodev.samplerest.services.UsuarioService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("usuarios")
 class UsuarioController(val service: UsuarioService) {
 
     @PostMapping
-    fun addUser(@RequestBody usuario: CreateUserDTO): ResponseEntity<MessageResponseDTO> {
+    fun addUser(@RequestBody @Valid usuario: CreateUserDTO): ResponseEntity<MessageResponseDTO> {
         val createdSuccessfully = service.save(usuario.fromDTO())
 
         return if (createdSuccessfully) {
@@ -24,8 +25,14 @@ class UsuarioController(val service: UsuarioService) {
     }
 
     @PutMapping
-    fun updateUser(@RequestBody usuario: Usuario): ResponseEntity<Usuario> {
-        return ResponseEntity.ok(service.update(usuario))
+    fun updateUser(@RequestBody @Valid usuario: Usuario): ResponseEntity<MessageResponseDTO> {
+        val updatedSuccessfully = service.update(usuario)
+
+        return if (updatedSuccessfully) {
+            ResponseEntity(MessageResponseDTO("Usuário atualizado com sucesso!"), HttpStatus.OK)
+        } else {
+            ResponseEntity(MessageResponseDTO("Erro ao criar o usuário, tente novamente mais tarde"), HttpStatus.BAD_REQUEST)
+        }
     }
 
     @DeleteMapping("{id}")
