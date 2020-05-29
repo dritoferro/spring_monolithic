@@ -3,6 +3,8 @@ package br.com.tagliaferrodev.samplerest.security
 import br.com.tagliaferrodev.samplerest.utils.sec.JWTUtils
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.Ordered
+import org.springframework.core.annotation.Order
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -17,11 +19,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
+@Order(Ordered.HIGHEST_PRECEDENCE)
 class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl,
                       private val jwtUtils: JWTUtils) : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
-        http.cors().and().csrf().ignoringAntMatchers("/api/**").disable()
+        http.cors().and().csrf().disable()
 
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login", "/usuarios").permitAll()
@@ -34,11 +37,8 @@ class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl,
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
 
-    override fun configure(auth: AuthenticationManagerBuilder?) {
-        auth?.let {
-            auth.userDetailsService(userDetailsService)
-                    .passwordEncoder(bcryptPasswordEncoder())
-        }
+    override fun configure(auth: AuthenticationManagerBuilder) {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bcryptPasswordEncoder())
     }
 
     @Bean

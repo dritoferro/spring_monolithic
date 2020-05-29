@@ -12,7 +12,7 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class AuthorizationFilter(authenticationManager: AuthenticationManager?,
+class AuthorizationFilter(authenticationManager: AuthenticationManager,
                           private val jwtUtils: JWTUtils,
                           private val userDetailsService: UserDetailsServiceImpl) : BasicAuthenticationFilter(authenticationManager) {
 
@@ -28,7 +28,7 @@ class AuthorizationFilter(authenticationManager: AuthenticationManager?,
 
                 SecurityContextHolder.getContext().authentication = auth
             } catch (e: Exception) {
-                return SimpleResponseSender.send(response, ApiError(status = HttpStatus.UNAUTHORIZED, message = "Token inválido, por favor, faça o login novamente"))
+                return SimpleResponseSender.send(response, ApiError(status = HttpStatus.UNAUTHORIZED, message = "Token inválido. Por favor, faça o login novamente"))
             }
         }
 
