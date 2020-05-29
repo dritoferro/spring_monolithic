@@ -14,6 +14,10 @@ data class Usuario(
         val id: Long? = null,
 
         @field:NotNull
+        @field:Size(min = 1, max = 255)
+        val nome: String? = null,
+
+        @field:NotNull
         @Column(unique = true)
         @field:Size(min = 3, max = 255)
         val apelido: String? = null,
@@ -26,7 +30,7 @@ data class Usuario(
 
         @field:NotNull
         @JsonIgnore
-        val senha: String? = null,
+        var senha: String? = null,
 
         @field:NotNull
         val bloqueado: Boolean? = false

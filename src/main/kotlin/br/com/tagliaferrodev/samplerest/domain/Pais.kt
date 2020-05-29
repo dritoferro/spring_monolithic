@@ -13,6 +13,7 @@ data class Pais(
         val id: Long? = null,
 
         @field:NotNull
+        @field:Column(unique = true)
         val nome: String? = null,
 
         @field:NotNull
@@ -21,10 +22,12 @@ data class Pais(
 
         @field:NotNull
         @field:Size(min = 2, max = 2)
+        @field:Column(unique = true)
         val codigoIso2: String? = null,
 
         @field:NotNull
         @field:Size(min = 3, max = 3)
+        @field:Column(unique = true)
         val codigoIso3: String? = null,
 
         @OneToMany(mappedBy = "pais")
