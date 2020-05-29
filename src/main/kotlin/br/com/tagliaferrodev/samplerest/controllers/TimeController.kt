@@ -5,18 +5,19 @@ import br.com.tagliaferrodev.samplerest.services.TimeService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("times")
 class TimeController(val service: TimeService) {
 
     @PostMapping
-    fun addTime(@RequestBody time: Time): ResponseEntity<Time> {
+    fun addTime(@RequestBody @Valid time: Time): ResponseEntity<Time> {
         return ResponseEntity(service.save(time), HttpStatus.CREATED)
     }
 
     @PutMapping
-    fun updateTime(@RequestBody time: Time): ResponseEntity<Time> {
+    fun updateTime(@RequestBody @Valid time: Time): ResponseEntity<Time> {
         return ResponseEntity.ok(service.update(time))
     }
 

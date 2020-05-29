@@ -18,12 +18,12 @@ data class Usuario(
         val nome: String? = null,
 
         @field:NotNull
-        @Column(unique = true)
+        @field:Column(unique = true)
         @field:Size(min = 3, max = 255)
         val apelido: String? = null,
 
         @field:NotNull
-        @Column(unique = true)
+        @field:Column(unique = true)
         @field:Email
         @field:Size(min = 3, max = 255)
         val email: String? = null,

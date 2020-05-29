@@ -5,18 +5,19 @@ import br.com.tagliaferrodev.samplerest.services.JogadorService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("jogador")
 class JogadorController(val service: JogadorService) {
 
     @PostMapping
-    fun addJogador(@RequestBody jogador: Jogador): ResponseEntity<Jogador> {
+    fun addJogador(@RequestBody @Valid jogador: Jogador): ResponseEntity<Jogador> {
         return ResponseEntity(service.save(jogador), HttpStatus.CREATED)
     }
 
     @PutMapping
-    fun updateJogador(@RequestBody jogador: Jogador): ResponseEntity<Jogador> {
+    fun updateJogador(@RequestBody @Valid jogador: Jogador): ResponseEntity<Jogador> {
         return ResponseEntity.ok(service.update(jogador))
     }
 
