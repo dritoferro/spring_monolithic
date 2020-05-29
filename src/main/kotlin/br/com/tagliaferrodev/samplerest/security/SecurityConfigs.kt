@@ -23,10 +23,17 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl,
                       private val jwtUtils: JWTUtils) : WebSecurityConfigurerAdapter() {
 
+    private final val DOCS_MATCHERS = listOf(
+            "/api-docs/**",
+            "/api-docs.yaml",
+            "/swagger-ui/**"
+    )
+
     override fun configure(http: HttpSecurity) {
         http.cors().and().csrf().disable()
 
         http.authorizeRequests()
+                .antMatchers(*DOCS_MATCHERS.toTypedArray()).permitAll()
                 .antMatchers(HttpMethod.POST, "/login", "/usuarios").permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
