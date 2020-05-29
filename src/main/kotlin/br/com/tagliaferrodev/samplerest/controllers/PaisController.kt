@@ -5,18 +5,19 @@ import br.com.tagliaferrodev.samplerest.services.PaisService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("paises")
 class PaisController(val service: PaisService) {
 
     @PostMapping
-    fun addPais(@RequestBody pais: Pais): ResponseEntity<Pais> {
+    fun addPais(@RequestBody @Valid pais: Pais): ResponseEntity<Pais> {
         return ResponseEntity(service.save(pais), HttpStatus.CREATED)
     }
 
     @PutMapping
-    fun updatePais(@RequestBody pais: Pais): ResponseEntity<Pais> {
+    fun updatePais(@RequestBody @Valid pais: Pais): ResponseEntity<Pais> {
         return ResponseEntity.ok(service.update(pais))
     }
 

@@ -5,18 +5,19 @@ import br.com.tagliaferrodev.samplerest.services.MunicipioService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("municipios")
 class MunicipioController(val service: MunicipioService) {
 
     @PostMapping
-    fun addMunicipio(@RequestBody municipio: Municipio): ResponseEntity<Municipio> {
+    fun addMunicipio(@RequestBody @Valid municipio: Municipio): ResponseEntity<Municipio> {
         return ResponseEntity(service.save(municipio), HttpStatus.CREATED)
     }
 
     @PutMapping
-    fun updateMunicipio(@RequestBody municipio: Municipio): ResponseEntity<Municipio> {
+    fun updateMunicipio(@RequestBody @Valid municipio: Municipio): ResponseEntity<Municipio> {
         return ResponseEntity.ok(service.update(municipio))
     }
 
