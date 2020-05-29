@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -28,7 +29,6 @@ class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl,
                 .authorizeRequests().anyRequest().authenticated()
 
         http.addFilter(AuthenticationFilter(jwtUtils, authenticationManager()))
-
         http.addFilter(AuthorizationFilter(authenticationManager(), jwtUtils, userDetailsService))
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -37,8 +37,13 @@ class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl,
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth?.let {
             auth.userDetailsService(userDetailsService)
-                    .passwordEncoder(BCryptPasswordEncoder())
+                    .passwordEncoder(bcryptPasswordEncoder())
         }
+    }
+
+    @Bean
+    fun bcryptPasswordEncoder(): PasswordEncoder {
+        return BCryptPasswordEncoder()
     }
 
     @Bean
