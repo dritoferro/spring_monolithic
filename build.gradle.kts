@@ -52,6 +52,10 @@ dependencies {
 
 	// Spring Security for Tests
 	testImplementation("org.springframework.security:spring-security-test")
+
+	// Docs
+	implementation("org.springdoc:springdoc-openapi-ui:1.3.9")
+	/*compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.3.9'*/
 }
 
 tasks.withType<Test> {
