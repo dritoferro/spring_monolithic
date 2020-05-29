@@ -31,3 +31,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Ignore docker-compose ###
+docker-compose.yml

@@ -1,0 +1,13 @@
+version: "2.4"
+
+services:
+  admin:
+    image: "adoptopenjdk:8-jdk-hotspot"
+    container_name: "soccer-players"
+    ports:
+      - 9090:9090
+    volumes:
+      - "./build/libs:/usr/app"
+    command: sh -c 'cd /usr/app && java -jar soccerplayers.jar'
+    network_mode: host
+    mem_limit: "512mb"
