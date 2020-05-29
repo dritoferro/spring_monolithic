@@ -3,15 +3,19 @@ package br.com.tagliaferrodev.samplerest.services
 import br.com.tagliaferrodev.samplerest.domain.Nacionalidade
 import br.com.tagliaferrodev.samplerest.repositories.NacionalidadeRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityNotFoundException
 
 @Service
 class NacionalidadeService(private val repository: NacionalidadeRepository) {
 
+    @Transactional
     fun save(entity: Nacionalidade) = repository.save(entity)
 
+    @Transactional
     fun findById(id: Long) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Nacionalidade não encontrada") }
 
+    @Transactional
     fun update(entity: Nacionalidade): Nacionalidade {
         if (entity.id != null) {
             findById(entity.id)
@@ -20,5 +24,6 @@ class NacionalidadeService(private val repository: NacionalidadeRepository) {
         throw IllegalArgumentException("Não pode atualizar a nacionalidade sem id")
     }
 
+    @Transactional
     fun delete(id: Long) = repository.deleteById(id)
 }
