@@ -1,8 +1,8 @@
 package br.com.tagliaferrodev.samplerest.controllers
 
-import br.com.tagliaferrodev.samplerest.domain.Usuario
-import br.com.tagliaferrodev.samplerest.domain.dto.CreateUserDTO
 import br.com.tagliaferrodev.samplerest.domain.dto.MessageResponseDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.usuario.CreateUserDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.usuario.UpdateUserDTO
 import br.com.tagliaferrodev.samplerest.services.UsuarioService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -25,8 +25,8 @@ class UsuarioController(val service: UsuarioService) {
     }
 
     @PutMapping
-    fun updateUser(@RequestBody @Valid usuario: Usuario): ResponseEntity<MessageResponseDTO> {
-        val updatedSuccessfully = service.update(usuario)
+    fun updateUser(@RequestBody @Valid usuario: UpdateUserDTO): ResponseEntity<MessageResponseDTO> {
+        val updatedSuccessfully = service.update(usuario.fromDTO())
 
         return if (updatedSuccessfully) {
             ResponseEntity(MessageResponseDTO("Usuário atualizado com sucesso!"), HttpStatus.OK)
