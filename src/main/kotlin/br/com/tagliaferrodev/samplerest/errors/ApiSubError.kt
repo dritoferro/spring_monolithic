@@ -1,6 +1,6 @@
 package br.com.tagliaferrodev.samplerest.errors
 
-data class ApiSubError(val `object`: String? = null,
+data class ApiSubError(val attribute: String? = null,
                        val message: String,
                        val field: String? = null,
                        val rejectedValue: Any? = null,
