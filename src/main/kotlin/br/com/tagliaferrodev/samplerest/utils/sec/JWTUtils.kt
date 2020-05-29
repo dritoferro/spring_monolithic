@@ -30,6 +30,18 @@ class JWTUtils {
                 .compact()
     }
 
-    fun getTokenExpiration(token: String) = getClaims(token)?.expiration?.time ?: 0
+    fun getTokenExpiration(token: String) = getClaims(token).expiration?.time ?: 0
+
+    fun validate(token: String): Boolean {
+        val claims = getClaims(token)
+        val username = claims.subject
+        val expirationDate = claims.expiration
+
+        val now = Date(System.currentTimeMillis())
+
+        return username != null && now.before(expirationDate)
+    }
+
+    fun getUsername(token: String) = getClaims(token)?.subject
 
 }

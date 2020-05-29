@@ -19,20 +19,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl,
                       private val jwtUtils: JWTUtils) : WebSecurityConfigurerAdapter() {
 
-    override fun configure(http: HttpSecurity?) {
-        http?.let {
-            http.cors().and().csrf().disable()
+    override fun configure(http: HttpSecurity) {
+        http.cors().and().csrf().ignoringAntMatchers("/api/**").disable()
 
-            http.authorizeRequests().anyRequest().permitAll()
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/login", "/usuarios").permitAll()
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
 
-            //TODO fazer o AuthenticationFilter
-            http.addFilter(AuthenticationFilter(jwtUtils, authenticationManager()))
+        http.addFilter(AuthenticationFilter(jwtUtils, authenticationManager()))
 
-            //TODO fazer o AuthorizationFilter
-            http.addFilter(AuthorizationFilter(authenticationManager()))
+        http.addFilter(AuthorizationFilter(authenticationManager(), jwtUtils, userDetailsService))
 
-            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        }
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
