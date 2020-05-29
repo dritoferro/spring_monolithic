@@ -15,6 +15,7 @@ import javax.persistence.EntityNotFoundException
 import javax.validation.ConstraintViolationException
 
 @RestControllerAdvice
+@Suppress("UNCHECKED_CAST")
 class ApiExceptionHandler : ResponseEntityExceptionHandler() {
 
     private fun sendResponse(apiError: ApiError): ResponseEntity<ApiError> {
@@ -60,7 +61,6 @@ class ApiExceptionHandler : ResponseEntityExceptionHandler() {
         return sendResponse(error)
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun handleHttpMessageNotReadable(ex: HttpMessageNotReadableException, headers: HttpHeaders, status: HttpStatus, request: WebRequest): ResponseEntity<Any> {
 
         return sendResponse(ApiError(HttpStatus.BAD_REQUEST, message = "Possível erro no valor de algum atributo e/ou faltando atributos", debugMessage = ex.cause?.message)) as ResponseEntity<Any>
