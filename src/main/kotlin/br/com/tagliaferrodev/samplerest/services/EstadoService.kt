@@ -13,7 +13,7 @@ class EstadoService(private val repository: EstadoRepository) {
     fun save(entity: Estado) = repository.save(entity)
 
     @Transactional
-    fun findById(id: Long) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Estado não encontrado") }
+    fun findById(id: Int) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Estado não encontrado") }
 
     @Transactional
     fun update(entity: Estado): Estado {
@@ -25,5 +25,5 @@ class EstadoService(private val repository: EstadoRepository) {
     }
 
     @Transactional
-    fun delete(id: Long) = repository.deleteById(id)
+    fun delete(id: Int) = repository.deleteById(id)
 }

@@ -13,7 +13,7 @@ import javax.validation.constraints.Size
 data class Jogador(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long? = null,
+        val id: Int? = null,
 
         @field:NotNull
         @field:Size(min = 1, max = 255)
@@ -36,6 +36,7 @@ data class Jogador(
         @Convert(converter = LocalDateConverter::class)
         val dataContratacao: LocalDate? = null,
 
+        @Convert(converter = LocalDateConverter::class)
         val dataDemissao: LocalDate? = null,
 
         val salario: Double? = null

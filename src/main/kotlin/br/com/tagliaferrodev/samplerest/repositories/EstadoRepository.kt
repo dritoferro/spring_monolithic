@@ -5,4 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface EstadoRepository : JpaRepository<Estado, Long>
+interface EstadoRepository : JpaRepository<Estado, Int>

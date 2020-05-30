@@ -24,7 +24,7 @@ class UsuarioService(private val repository: UsuarioRepository) {
     }
 
     @Transactional
-    fun findById(id: Long) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Usuário não encontrado") }
+    fun findById(id: Int) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Usuário não encontrado") }
 
     @Transactional
     fun update(usuario: Usuario): Boolean {
@@ -42,5 +42,5 @@ class UsuarioService(private val repository: UsuarioRepository) {
     fun findForLogin(field: String) = repository.findByEmailOrApelidoAndBloqueadoFalse(field, field).orElseThrow { throw EntityNotFoundException("Usuário não encontrado") }
 
     @Transactional
-    fun delete(id: Long) = repository.deleteById(id)
+    fun delete(id: Int) = repository.deleteById(id)
 }

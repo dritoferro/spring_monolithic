@@ -22,12 +22,12 @@ class MunicipioController(val service: MunicipioService) {
     }
 
     @GetMapping("{id}")
-    fun getMunicipioById(@PathVariable id: Long): ResponseEntity<Municipio> {
+    fun getMunicipioById(@PathVariable id: Int): ResponseEntity<Municipio> {
         return ResponseEntity.ok(service.findById(id))
     }
 
     @DeleteMapping("{id}")
-    fun deleteMunicipio(@PathVariable id: Long): ResponseEntity<Unit> {
+    fun deleteMunicipio(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }

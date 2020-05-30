@@ -13,7 +13,7 @@ class TimeService(private val repository: TimeRepository) {
     fun save(entity: Time) = repository.save(entity)
 
     @Transactional
-    fun findById(id: Long) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Time não encontrado") }
+    fun findById(id: Int) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Time não encontrado") }
 
     @Transactional
     fun update(entity: Time): Time {
@@ -25,5 +25,5 @@ class TimeService(private val repository: TimeRepository) {
     }
 
     @Transactional
-    fun delete(id: Long) = repository.deleteById(id)
+    fun delete(id: Int) = repository.deleteById(id)
 }

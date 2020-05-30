@@ -8,7 +8,7 @@ import javax.validation.constraints.Size
 
 data class UpdateUserDTO(
         @field:NotNull
-        val id: Long? = null,
+        val id: Int? = null,
 
         @field:NotNull
         @field:Size(min = 1, max = 255)

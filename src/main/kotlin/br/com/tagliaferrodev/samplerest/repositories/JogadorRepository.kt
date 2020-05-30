@@ -5,4 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface JogadorRepository : JpaRepository<Jogador, Long>
+interface JogadorRepository : JpaRepository<Jogador, Int>

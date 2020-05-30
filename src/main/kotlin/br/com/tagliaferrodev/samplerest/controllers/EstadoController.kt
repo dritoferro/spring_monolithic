@@ -22,12 +22,12 @@ class EstadoController(val service: EstadoService) {
     }
 
     @GetMapping("{id}")
-    fun getEstadoById(@PathVariable id: Long): ResponseEntity<Estado> {
+    fun getEstadoById(@PathVariable id: Int): ResponseEntity<Estado> {
         return ResponseEntity.ok(service.findById(id))
     }
 
     @DeleteMapping("{id}")
-    fun deleteEstado(@PathVariable id: Long): ResponseEntity<Unit> {
+    fun deleteEstado(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }

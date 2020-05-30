@@ -22,12 +22,12 @@ class PessoaController(val service: PessoaService) {
     }
 
     @GetMapping("{id}")
-    fun getPessoaById(@PathVariable id: Long): ResponseEntity<Pessoa> {
+    fun getPessoaById(@PathVariable id: Int): ResponseEntity<Pessoa> {
         return ResponseEntity.ok(service.findById(id))
     }
 
     @DeleteMapping("{id}")
-    fun deletePessoa(@PathVariable id: Long): ResponseEntity<Unit> {
+    fun deletePessoa(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }

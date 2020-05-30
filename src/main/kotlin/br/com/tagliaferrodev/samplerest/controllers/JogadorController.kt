@@ -22,12 +22,12 @@ class JogadorController(val service: JogadorService) {
     }
 
     @GetMapping("{id}")
-    fun getJogadorById(@PathVariable id: Long): ResponseEntity<Jogador> {
+    fun getJogadorById(@PathVariable id: Int): ResponseEntity<Jogador> {
         return ResponseEntity.ok(service.findById(id))
     }
 
     @DeleteMapping("{id}")
-    fun deleteJogador(@PathVariable id: Long): ResponseEntity<Unit> {
+    fun deleteJogador(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }

@@ -22,12 +22,12 @@ class NacionalidadeController(val service: NacionalidadeService) {
     }
 
     @GetMapping("{id}")
-    fun getNacionalidadeById(@PathVariable id: Long): ResponseEntity<Nacionalidade> {
+    fun getNacionalidadeById(@PathVariable id: Int): ResponseEntity<Nacionalidade> {
         return ResponseEntity.ok(service.findById(id))
     }
 
     @DeleteMapping("{id}")
-    fun deleteNacionalidade(@PathVariable id: Long): ResponseEntity<Unit> {
+    fun deleteNacionalidade(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }

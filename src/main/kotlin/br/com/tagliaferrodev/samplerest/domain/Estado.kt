@@ -10,7 +10,7 @@ import javax.validation.constraints.Size
 data class Estado(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long? = null,
+        val id: Int? = null,
 
         @field:NotNull
         @field:Size(min = 3, max = 255)
