@@ -36,7 +36,7 @@ class UsuarioController(val service: UsuarioService) {
     }
 
     @DeleteMapping("{id}")
-    fun deleteUser(@PathVariable id: Long): ResponseEntity<Unit> {
+    fun deleteUser(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }

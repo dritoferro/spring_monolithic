@@ -22,12 +22,12 @@ class TimeController(val service: TimeService) {
     }
 
     @GetMapping("{id}")
-    fun getTimeById(@PathVariable id: Long): ResponseEntity<Time> {
+    fun getTimeById(@PathVariable id: Int): ResponseEntity<Time> {
         return ResponseEntity.ok(service.findById(id))
     }
 
     @DeleteMapping("{id}")
-    fun deleteTime(@PathVariable id: Long): ResponseEntity<Unit> {
+    fun deleteTime(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }

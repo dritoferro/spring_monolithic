@@ -13,7 +13,7 @@ class NacionalidadeService(private val repository: NacionalidadeRepository) {
     fun save(entity: Nacionalidade) = repository.save(entity)
 
     @Transactional
-    fun findById(id: Long) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Nacionalidade não encontrada") }
+    fun findById(id: Int) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Nacionalidade não encontrada") }
 
     @Transactional
     fun update(entity: Nacionalidade): Nacionalidade {
@@ -25,5 +25,5 @@ class NacionalidadeService(private val repository: NacionalidadeRepository) {
     }
 
     @Transactional
-    fun delete(id: Long) = repository.deleteById(id)
+    fun delete(id: Int) = repository.deleteById(id)
 }

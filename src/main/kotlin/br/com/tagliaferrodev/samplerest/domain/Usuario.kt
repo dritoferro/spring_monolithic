@@ -11,7 +11,7 @@ import javax.validation.constraints.Size
 data class Usuario(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long? = null,
+        val id: Int? = null,
 
         @field:NotNull
         @field:Size(min = 1, max = 255)

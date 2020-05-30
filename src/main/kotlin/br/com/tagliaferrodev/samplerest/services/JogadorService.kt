@@ -13,7 +13,7 @@ class JogadorService(private val repository: JogadorRepository) {
     fun save(entity: Jogador) = repository.save(entity)
 
     @Transactional
-    fun findById(id: Long) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Jogador não encontrado") }
+    fun findById(id: Int) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Jogador não encontrado") }
 
     fun update(entity: Jogador): Jogador {
         if (entity.id != null) {
@@ -24,5 +24,5 @@ class JogadorService(private val repository: JogadorRepository) {
     }
 
     @Transactional
-    fun delete(id: Long) = repository.deleteById(id)
+    fun delete(id: Int) = repository.deleteById(id)
 }

@@ -13,7 +13,7 @@ class MunicipioService(private val repository: MunicipioRepository) {
     fun save(entity: Municipio) = repository.save(entity)
 
     @Transactional
-    fun findById(id: Long) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Municipio não encontrado") }
+    fun findById(id: Int) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Municipio não encontrado") }
 
     @Transactional
     fun update(entity: Municipio): Municipio {
@@ -25,5 +25,5 @@ class MunicipioService(private val repository: MunicipioRepository) {
     }
 
     @Transactional
-    fun delete(id: Long) = repository.deleteById(id)
+    fun delete(id: Int) = repository.deleteById(id)
 }

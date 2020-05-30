@@ -22,12 +22,12 @@ class PaisController(val service: PaisService) {
     }
 
     @GetMapping("{id}")
-    fun getPaisById(@PathVariable id: Long): ResponseEntity<Pais> {
+    fun getPaisById(@PathVariable id: Int): ResponseEntity<Pais> {
         return ResponseEntity.ok(service.findById(id))
     }
 
     @DeleteMapping("{id}")
-    fun deletePais(@PathVariable id: Long): ResponseEntity<Unit> {
+    fun deletePais(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }
