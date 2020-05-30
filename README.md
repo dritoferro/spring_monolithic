@@ -11,7 +11,8 @@ This project has been developed with the following tech:
   - Spring Security
   - JWT
 - Kotlin
-- MySQL
+- Gradle
+- PostgreSQL
 - GitFlow
 - Sonarcloud
 - GitHub
