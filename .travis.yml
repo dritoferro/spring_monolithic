@@ -1,0 +1,9 @@
+language: java
+script: "./gradlew build -x test"
+jdk: openjdk8
+deploy:
+  provider: heroku
+  api_key:
+    secure: ${DEPLOY_KEY}
+  on:
+    branch: master
