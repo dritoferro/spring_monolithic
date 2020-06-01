@@ -2,9 +2,16 @@ language: java
 script: "./gradlew build -x test"
 jdk: openjdk8
 deploy:
-  provider: heroku
-  api_key:
-    secure: AGt/ncqo9paIVhG4PZAK/5+IXocvrJZf4JOS0E0pwptVM+tZcDn4XCb2J1g2fVMabWt0uA7I2Y1WsT/rFtEmhMha3gXXtH54Sj7nDMjXZnscsQ0Pwaj0BpRLkb1MLc2c0bwhuOCBCqVVkA9RzCkf6KlyCYdAvuTguR6IOZXxxHq9URv7MvMCypo4QoGuVg8Gkwoj7enRCQQILvhqQPxp9E1NBvH/uOZMnl3C4f+f71rDG79e9d1SF44m+RhACL4d7lpME/+5E8wNDdYiCeUIlH1Uc28ULMX8GwTma2ER83AGNBsQd+M9E1CuVD82s2+pesXxe6ZqzScphsCCqbyKUB1LAEIHqXPvkhop0KHGZenCMGXVdBZn9KWspXxLkACMqnpJq0Hzy3eEHMgZCNpm+oZqBiLaQawmULCkW/KR91gMYuPfgN89EPOowN86voo9jUwlS0tK+q1p52kueQz7WadvKyS1lDSfLr4avb3OdZMTYYsJblE7EPnPhaOOTCwCAevfScpPTFCVdUvve3I7uUpSOXLe9PBB8xRtcKmr4+zvkA8HUwHSE0ASwn0MBB5SXrhA6eHxLErLa2pO+zhqnzmPTs2kP2IkXT14lF/iDNHjuNv/9aVOcXU9E0UVx2z64wjGPTmrrS4zgiIwAlcG+feLa0r95Tdry6HGWwnbT2g=
-  on:
-    branch: master
-  app: spring-monolithic
+  - provider: heroku
+    api_key:
+      secure: AGt/ncqo9paIVhG4PZAK/5+IXocvrJZf4JOS0E0pwptVM+tZcDn4XCb2J1g2fVMabWt0uA7I2Y1WsT/rFtEmhMha3gXXtH54Sj7nDMjXZnscsQ0Pwaj0BpRLkb1MLc2c0bwhuOCBCqVVkA9RzCkf6KlyCYdAvuTguR6IOZXxxHq9URv7MvMCypo4QoGuVg8Gkwoj7enRCQQILvhqQPxp9E1NBvH/uOZMnl3C4f+f71rDG79e9d1SF44m+RhACL4d7lpME/+5E8wNDdYiCeUIlH1Uc28ULMX8GwTma2ER83AGNBsQd+M9E1CuVD82s2+pesXxe6ZqzScphsCCqbyKUB1LAEIHqXPvkhop0KHGZenCMGXVdBZn9KWspXxLkACMqnpJq0Hzy3eEHMgZCNpm+oZqBiLaQawmULCkW/KR91gMYuPfgN89EPOowN86voo9jUwlS0tK+q1p52kueQz7WadvKyS1lDSfLr4avb3OdZMTYYsJblE7EPnPhaOOTCwCAevfScpPTFCVdUvve3I7uUpSOXLe9PBB8xRtcKmr4+zvkA8HUwHSE0ASwn0MBB5SXrhA6eHxLErLa2pO+zhqnzmPTs2kP2IkXT14lF/iDNHjuNv/9aVOcXU9E0UVx2z64wjGPTmrrS4zgiIwAlcG+feLa0r95Tdry6HGWwnbT2g=
+    on:
+      branch: master
+    app: spring-monolithic
+  - provider: heroku
+    api_key:
+      secure: $API_KEY
+    on:
+      branch: develop
+    app: spring-monolithic-stg
+
