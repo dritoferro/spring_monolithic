@@ -26,7 +26,8 @@ class SecurityConfigs(private val userDetailsService: UserDetailsServiceImpl,
     private final val DOCS_MATCHERS = listOf(
             "/api-docs/**",
             "/api-docs.yaml",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+            "/swagger-ui.html"
     )
 
     override fun configure(http: HttpSecurity) {
