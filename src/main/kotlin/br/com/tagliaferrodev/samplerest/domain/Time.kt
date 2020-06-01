@@ -15,7 +15,7 @@ data class Time(
         @field:Size(min = 3, max = 255)
         val nome: String? = null,
 
-        @OneToOne
+        @ManyToOne
         @field:NotNull
         val municipio: Municipio? = null,
 

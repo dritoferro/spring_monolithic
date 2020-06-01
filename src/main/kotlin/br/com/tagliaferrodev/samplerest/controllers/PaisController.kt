@@ -21,6 +21,11 @@ class PaisController(val service: PaisService) {
         return ResponseEntity.ok(service.update(pais))
     }
 
+    @GetMapping
+    fun getAllPaises(): ResponseEntity<List<Pais>> {
+        return ResponseEntity.ok(service.findAll())
+    }
+
     @GetMapping("{id}")
     fun getPaisById(@PathVariable id: Int): ResponseEntity<Pais> {
         return ResponseEntity.ok(service.findById(id))

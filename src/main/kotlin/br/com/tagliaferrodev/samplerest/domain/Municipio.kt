@@ -21,8 +21,8 @@ data class Municipio(
         @ManyToOne
         val estado: Estado? = null,
 
-        @OneToOne(mappedBy = "municipio")
+        @OneToMany(mappedBy = "municipio")
         @JsonIgnore
-        val time: Time? = null
+        val times: List<Time>? = listOf()
 ) {
 }

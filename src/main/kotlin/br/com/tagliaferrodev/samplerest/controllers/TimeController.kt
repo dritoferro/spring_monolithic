@@ -21,6 +21,11 @@ class TimeController(val service: TimeService) {
         return ResponseEntity.ok(service.update(time))
     }
 
+    @GetMapping
+    fun getAllTimes(): ResponseEntity<List<Time>> {
+        return ResponseEntity.ok(service.findAll())
+    }
+
     @GetMapping("{id}")
     fun getTimeById(@PathVariable id: Int): ResponseEntity<Time> {
         return ResponseEntity.ok(service.findById(id))

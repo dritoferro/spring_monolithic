@@ -21,6 +21,11 @@ class MunicipioController(val service: MunicipioService) {
         return ResponseEntity.ok(service.update(municipio))
     }
 
+    @GetMapping
+    fun getAllMunicipios(): ResponseEntity<List<Municipio>> {
+        return ResponseEntity.ok(service.findAll())
+    }
+
     @GetMapping("{id}")
     fun getMunicipioById(@PathVariable id: Int): ResponseEntity<Municipio> {
         return ResponseEntity.ok(service.findById(id))

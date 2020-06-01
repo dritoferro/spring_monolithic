@@ -21,6 +21,11 @@ class PessoaController(val service: PessoaService) {
         return ResponseEntity.ok(service.update(pessoa))
     }
 
+    @GetMapping
+    fun getAllPessoas(): ResponseEntity<List<Pessoa>> {
+        return ResponseEntity.ok(service.findAll())
+    }
+
     @GetMapping("{id}")
     fun getPessoaById(@PathVariable id: Int): ResponseEntity<Pessoa> {
         return ResponseEntity.ok(service.findById(id))
