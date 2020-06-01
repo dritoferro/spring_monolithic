@@ -6,7 +6,13 @@
 
 This project has a monolithic architecture, just to provide a CRUD for `Soccer Players` and its related info. Next, it will be converted to a microservice project on a separate repo.
 
-This project has been developed with the following tech:
+**Production URL:** https://spring-monolithic.herokuapp.com/
+
+**Stage URL:** https://spring-monolithic-stg.herokuapp.com/
+
+**Swagger:** {PROD/STAGE}/api/v1/swagger-ui.html
+
+This project has been developed with the following techs:
 
 - Spring 
   - Spring Data 
@@ -15,6 +21,7 @@ This project has been developed with the following tech:
 - Kotlin
 - Gradle
 - PostgreSQL
+- Swagger
 - GitFlow
 - Sonarcloud
 - Travis

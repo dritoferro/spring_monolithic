@@ -26,4 +26,7 @@ class MunicipioService(private val repository: MunicipioRepository) {
 
     @Transactional
     fun delete(id: Int) = repository.deleteById(id)
+
+    @Transactional
+    fun findAll() = repository.findAll()
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.validation.FieldError
+import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -80,5 +81,11 @@ class ApiExceptionHandler : ResponseEntityExceptionHandler() {
             }
         }
         return sendResponse(ApiError(HttpStatus.BAD_REQUEST, message = "Ocorreu um erro na validação dos dados", subErrors = subErrors)) as ResponseEntity<Any>
+    }
+
+    override fun handleHttpRequestMethodNotSupported(ex: HttpRequestMethodNotSupportedException, headers: HttpHeaders, status: HttpStatus, request: WebRequest): ResponseEntity<Any> {
+        val error = ApiError(HttpStatus.METHOD_NOT_ALLOWED, message = "Este método não é suportado para esta URL. Os métodos aceitos são: ${ex.supportedMethods?.joinToString()}")
+
+        return sendResponse(error) as ResponseEntity<Any>
     }
 }

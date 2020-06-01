@@ -1,14 +1,17 @@
 package br.com.tagliaferrodev.samplerest.utils.sec
 
+import br.com.tagliaferrodev.samplerest.domain.Usuario
 import br.com.tagliaferrodev.samplerest.security.UserDetailsImpl
+import br.com.tagliaferrodev.samplerest.services.UsuarioService
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class JWTUtils {
+class JWTUtils(private val usuarioService: UsuarioService) {
 
     @Value("\${jwt.secret}")
     val secret: String = ""
@@ -43,5 +46,17 @@ class JWTUtils {
     }
 
     fun getUsername(token: String) = getClaims(token)?.subject
+
+    fun getLoggedUser(): Usuario {
+        val user = getLoggedUserDetails()
+
+        return usuarioService.findById(user.id!!)
+    }
+
+    private fun getLoggedUserDetails() = SecurityContextHolder.getContext().authentication.principal as UserDetailsImpl
+
+    fun getLoggedUserId(): Int {
+        return getLoggedUserDetails().id!!
+    }
 
 }
