@@ -13,7 +13,9 @@ import javax.persistence.Enumerated
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
-data class CreateJogadorDTO(
+data class JogadorDTO(
+        val id: Int? = null,
+
         @field:NotNull
         @field:Size(min = 1, max = 255)
         val nomeProfissional: String? = null,
@@ -37,6 +39,7 @@ data class CreateJogadorDTO(
 
     override fun fromDTO(): Jogador {
         return Jogador(
+                id = id,
                 nomeProfissional = nomeProfissional,
                 pessoa = pessoa,
                 time = time,
