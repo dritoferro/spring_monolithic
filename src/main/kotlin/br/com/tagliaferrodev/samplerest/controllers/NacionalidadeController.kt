@@ -26,6 +26,11 @@ class NacionalidadeController(val service: NacionalidadeService) {
         return ResponseEntity.ok(service.findById(id))
     }
 
+    @GetMapping
+    fun getAllNacionalidades(): ResponseEntity<List<Nacionalidade>> {
+        return ResponseEntity.ok(service.findAll())
+    }
+
     @DeleteMapping("{id}")
     fun deleteNacionalidade(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)

@@ -26,4 +26,7 @@ class PaisService(private val repository: PaisRepository) {
 
     @Transactional
     fun delete(id: Int) = repository.deleteById(id)
+
+    @Transactional
+    fun findAll() = repository.findAll()
 }

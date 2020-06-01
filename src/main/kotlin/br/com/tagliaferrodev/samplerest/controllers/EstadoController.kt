@@ -21,6 +21,11 @@ class EstadoController(val service: EstadoService) {
         return ResponseEntity.ok(service.update(estado))
     }
 
+    @GetMapping
+    fun getAllEstados(): ResponseEntity<List<Estado>> {
+        return ResponseEntity.ok(service.findAll())
+    }
+
     @GetMapping("{id}")
     fun getEstadoById(@PathVariable id: Int): ResponseEntity<Estado> {
         return ResponseEntity.ok(service.findById(id))

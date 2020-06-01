@@ -26,4 +26,7 @@ class NacionalidadeService(private val repository: NacionalidadeRepository) {
 
     @Transactional
     fun delete(id: Int) = repository.deleteById(id)
+
+    @Transactional
+    fun findAll() = repository.findAll()
 }

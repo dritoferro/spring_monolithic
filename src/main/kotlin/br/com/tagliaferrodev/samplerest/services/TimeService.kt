@@ -26,4 +26,7 @@ class TimeService(private val repository: TimeRepository) {
 
     @Transactional
     fun delete(id: Int) = repository.deleteById(id)
+
+    @Transactional
+    fun findAll() = repository.findAll()
 }

@@ -26,4 +26,7 @@ class EstadoService(private val repository: EstadoRepository) {
 
     @Transactional
     fun delete(id: Int) = repository.deleteById(id)
+
+    @Transactional
+    fun findAll() = repository.findAll()
 }
