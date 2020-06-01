@@ -4,6 +4,7 @@ import br.com.tagliaferrodev.samplerest.domain.dto.MessageResponseDTO
 import br.com.tagliaferrodev.samplerest.domain.dto.usuario.CreateUserDTO
 import br.com.tagliaferrodev.samplerest.domain.dto.usuario.UpdateUserDTO
 import br.com.tagliaferrodev.samplerest.services.UsuarioService
+import br.com.tagliaferrodev.samplerest.utils.sec.JWTUtils
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,7 +12,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("usuarios")
-class UsuarioController(val service: UsuarioService) {
+class UsuarioController(val service: UsuarioService, private val jwtUtils: JWTUtils) {
 
     @PostMapping
     fun addUser(@RequestBody @Valid usuario: CreateUserDTO): ResponseEntity<MessageResponseDTO> {
@@ -26,6 +27,7 @@ class UsuarioController(val service: UsuarioService) {
 
     @PutMapping
     fun updateUser(@RequestBody @Valid usuario: UpdateUserDTO): ResponseEntity<MessageResponseDTO> {
+        usuario.id = jwtUtils.getLoggedUserId()
         val updatedSuccessfully = service.update(usuario.fromDTO())
 
         return if (updatedSuccessfully) {
@@ -35,8 +37,9 @@ class UsuarioController(val service: UsuarioService) {
         }
     }
 
-    @DeleteMapping("{id}")
-    fun deleteUser(@PathVariable id: Int): ResponseEntity<Unit> {
+    @DeleteMapping
+    fun deleteUser(): ResponseEntity<Unit> {
+        val id = jwtUtils.getLoggedUserId()
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
     }
 }
