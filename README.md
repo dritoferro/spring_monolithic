@@ -10,7 +10,7 @@ This project has a monolithic architecture, just to provide a CRUD for `Soccer P
 
 **Stage URL:** https://spring-monolithic-stg.herokuapp.com/
 
-**Swagger:** {PROD/STAGE}/swagger-ui.html
+**Swagger:** {PROD/STAGE}/api/v1/swagger-ui.html
 
 This project has been developed with the following techs:
 
