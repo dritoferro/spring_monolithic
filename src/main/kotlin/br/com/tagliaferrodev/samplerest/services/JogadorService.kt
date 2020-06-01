@@ -25,4 +25,7 @@ class JogadorService(private val repository: JogadorRepository) {
 
     @Transactional
     fun delete(id: Int) = repository.deleteById(id)
+
+    @Transactional
+    fun findAll() = repository.findAll()
 }
