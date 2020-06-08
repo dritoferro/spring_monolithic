@@ -2,23 +2,19 @@ package br.com.tagliaferrodev.samplerest.services
 
 import br.com.tagliaferrodev.samplerest.domain.Pais
 import br.com.tagliaferrodev.samplerest.repositories.PaisRepository
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
-class PaisServiceTest : CRUDTest<Pais, PaisService, PaisRepository> {
+class PaisServiceTest : CRUDTestExecutor<Pais, PaisService, PaisRepository>() {
 
     @Mock
     override lateinit var repository: PaisRepository
 
     @InjectMocks
     override lateinit var service: PaisService
-
-    override var mainEntityId: Int = 1
 
     override var mainEntity: Pais = Pais(
             nome = "Brasil",
@@ -60,45 +56,5 @@ class PaisServiceTest : CRUDTest<Pais, PaisService, PaisRepository> {
             )
     )
 
-    override lateinit var tester: CRUDTestExecutor<Pais, PaisService, PaisRepository>
-
-    @BeforeEach
-    override fun setup() {
-        tester = CRUDTestExecutor(mainEntity, mainEntity.copy(id = mainEntityId), mainEntityId, entities, service, repository)
-    }
-
-    @Test
-    override fun saveEntityShouldPersistSuccessfully() {
-        tester.persistTest()
-    }
-
-    @Test
-    override fun getEntityByIdShouldReturnSuccessfully() {
-        tester.getByIdTest()
-    }
-
-    @Test
-    override fun getEntityByWrongIdShouldThrowException() {
-        tester.throwExceptionOnGetById()
-    }
-
-    @Test
-    override fun getListForThisEntity() {
-        tester.testFindAll()
-    }
-
-    @Test
-    override fun updateEntityShouldPersistSuccessfully() {
-        tester.updateWithSuccessful()
-    }
-
-    @Test
-    override fun updateEntityWithoutIdShouldThrowException() {
-        tester.throwExceptionOnUpdate()
-    }
-
-    @Test
-    override fun deleteEntitySuccessfully() {
-        tester.deleteWithSuccessful()
-    }
+    override var mainEntityWithId = mainEntity.copy(id = mainEntityId)
 }

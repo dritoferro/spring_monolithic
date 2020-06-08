@@ -1,6 +1,7 @@
 package br.com.tagliaferrodev.samplerest.services
 
 import br.com.tagliaferrodev.samplerest.domain.dto.usuario.CreateUserDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.usuario.UpdateUserDTO
 import br.com.tagliaferrodev.samplerest.repositories.UsuarioRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -53,7 +54,8 @@ class UsuarioServiceTest {
 
     @Test
     fun shouldUpdateSuccessfully() {
-        val usuario = userDTO.fromDTO().copy(id = 1)
+        val userUpdate = UpdateUserDTO(nome = userDTO.nome, apelido = userDTO.apelido, email = userDTO.email)
+        val usuario = userUpdate.fromDTO().copy(id = 1)
 
         `when`(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario))
 

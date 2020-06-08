@@ -5,7 +5,6 @@ import br.com.tagliaferrodev.samplerest.domain.enums.Posicao
 import br.com.tagliaferrodev.samplerest.domain.enums.Sexo
 import br.com.tagliaferrodev.samplerest.repositories.JogadorRepository
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -14,15 +13,13 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
 
 @ExtendWith(MockitoExtension::class)
-class JogadorServiceTest : CRUDTest<Jogador, JogadorService, JogadorRepository> {
+class JogadorServiceTest : CRUDTestExecutor<Jogador, JogadorService, JogadorRepository>() {
 
     @Mock
     override lateinit var repository: JogadorRepository
 
     @InjectMocks
     override lateinit var service: JogadorService
-
-    override var mainEntityId: Int = 1
 
     private val corinthians = Time(nome = "Corinthians Futebol Clube",
             coresPrincipais = "Preto e Branco",
@@ -42,6 +39,8 @@ class JogadorServiceTest : CRUDTest<Jogador, JogadorService, JogadorRepository> 
             pessoa = Pessoa(id = 1),
             salario = 45.000
     )
+
+    override var mainEntityWithId = mainEntity.copy(id = mainEntityId)
 
     override var entities: List<Jogador> = listOf(
             Jogador(
@@ -81,48 +80,11 @@ class JogadorServiceTest : CRUDTest<Jogador, JogadorService, JogadorRepository> 
                     salario = 75.000)
     )
 
-    override lateinit var tester: CRUDTestExecutor<Jogador, JogadorService, JogadorRepository>
-
-    @BeforeEach
-    override fun setup() {
-        tester = CRUDTestExecutor(mainEntity, mainEntity.copy(id = mainEntityId), mainEntityId, entities, service, repository)
-    }
-
-    @Test
-    override fun saveEntityShouldPersistSuccessfully() {
-        tester.persistTest()
-    }
-
     @Test
     override fun getEntityByIdShouldReturnSuccessfully() {
-        val consulta = tester.getByIdTest(false)
+        val consulta = getEntityById()
 
         assertEquals(mainEntity.nomeProfissional, consulta?.nomeProfissional)
         assertEquals(mainEntity.posicao, consulta?.posicao)
-    }
-
-    @Test
-    override fun getEntityByWrongIdShouldThrowException() {
-        tester.throwExceptionOnGetById()
-    }
-
-    @Test
-    override fun getListForThisEntity() {
-        tester.testFindAll()
-    }
-
-    @Test
-    override fun updateEntityShouldPersistSuccessfully() {
-        tester.updateWithSuccessful()
-    }
-
-    @Test
-    override fun updateEntityWithoutIdShouldThrowException() {
-        tester.throwExceptionOnUpdate()
-    }
-
-    @Test
-    override fun deleteEntitySuccessfully() {
-        tester.deleteWithSuccessful()
     }
 }

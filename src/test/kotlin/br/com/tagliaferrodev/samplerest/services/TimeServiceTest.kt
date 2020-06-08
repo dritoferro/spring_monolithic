@@ -7,7 +7,6 @@ import br.com.tagliaferrodev.samplerest.domain.Time
 import br.com.tagliaferrodev.samplerest.domain.enums.Sexo
 import br.com.tagliaferrodev.samplerest.repositories.TimeRepository
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -16,15 +15,13 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
 
 @ExtendWith(MockitoExtension::class)
-class TimeServiceTest : CRUDTest<Time, TimeService, TimeRepository> {
+class TimeServiceTest : CRUDTestExecutor<Time, TimeService, TimeRepository>() {
 
     @Mock
     override lateinit var repository: TimeRepository
 
     @InjectMocks
     override lateinit var service: TimeService
-
-    override var mainEntityId: Int = 1
 
     override var mainEntity: Time = Time(
             nome = "Corinthians Futebol Clube",
@@ -95,48 +92,13 @@ class TimeServiceTest : CRUDTest<Time, TimeService, TimeRepository> {
                             sexo = Sexo.FEMININO))
     )
 
-    override lateinit var tester: CRUDTestExecutor<Time, TimeService, TimeRepository>
-
-    @BeforeEach
-    override fun setup() {
-        tester = CRUDTestExecutor(mainEntity, mainEntity.copy(id = mainEntityId), mainEntityId, entities, service, repository)
-    }
-
-    @Test
-    override fun saveEntityShouldPersistSuccessfully() {
-        tester.persistTest()
-    }
+    override var mainEntityWithId = mainEntity.copy(id = mainEntityId)
 
     @Test
     override fun getEntityByIdShouldReturnSuccessfully() {
-        val consulta = tester.getByIdTest(false)
+        val consulta = getEntityById()
 
         assertEquals(mainEntity.nome, consulta?.nome)
         assertEquals(mainEntity.treinador, consulta?.treinador)
-    }
-
-    @Test
-    override fun getEntityByWrongIdShouldThrowException() {
-        tester.throwExceptionOnGetById()
-    }
-
-    @Test
-    override fun getListForThisEntity() {
-        tester.testFindAll()
-    }
-
-    @Test
-    override fun updateEntityShouldPersistSuccessfully() {
-        tester.updateWithSuccessful()
-    }
-
-    @Test
-    override fun updateEntityWithoutIdShouldThrowException() {
-        tester.throwExceptionOnUpdate()
-    }
-
-    @Test
-    override fun deleteEntitySuccessfully() {
-        tester.deleteWithSuccessful()
     }
 }

@@ -5,8 +5,6 @@ import br.com.tagliaferrodev.samplerest.domain.Nacionalidade
 import br.com.tagliaferrodev.samplerest.domain.Pessoa
 import br.com.tagliaferrodev.samplerest.domain.enums.Sexo
 import br.com.tagliaferrodev.samplerest.repositories.PessoaRepository
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
@@ -14,15 +12,13 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
 
 @ExtendWith(MockitoExtension::class)
-class PessoaServiceTest : CRUDTest<Pessoa, PessoaService, PessoaRepository> {
+class PessoaServiceTest : CRUDTestExecutor<Pessoa, PessoaService, PessoaRepository>() {
 
     @Mock
     override lateinit var repository: PessoaRepository
 
     @InjectMocks
     override lateinit var service: PessoaService
-
-    override var mainEntityId: Int = 1
 
     override var mainEntity: Pessoa = Pessoa(
             nome = "Tester 1",
@@ -65,45 +61,5 @@ class PessoaServiceTest : CRUDTest<Pessoa, PessoaService, PessoaRepository> {
                     sexo = Sexo.FEMININO)
     )
 
-    override lateinit var tester: CRUDTestExecutor<Pessoa, PessoaService, PessoaRepository>
-
-    @BeforeEach
-    override fun setup() {
-        tester = CRUDTestExecutor(mainEntity, mainEntity.copy(id = mainEntityId), mainEntityId, entities, service, repository)
-    }
-
-    @Test
-    override fun saveEntityShouldPersistSuccessfully() {
-        tester.persistTest()
-    }
-
-    @Test
-    override fun getEntityByIdShouldReturnSuccessfully() {
-        tester.getByIdTest()
-    }
-
-    @Test
-    override fun getEntityByWrongIdShouldThrowException() {
-        tester.throwExceptionOnGetById()
-    }
-
-    @Test
-    override fun getListForThisEntity() {
-        tester.testFindAll()
-    }
-
-    @Test
-    override fun updateEntityShouldPersistSuccessfully() {
-        tester.updateWithSuccessful()
-    }
-
-    @Test
-    override fun updateEntityWithoutIdShouldThrowException() {
-        tester.throwExceptionOnUpdate()
-    }
-
-    @Test
-    override fun deleteEntitySuccessfully() {
-        tester.deleteWithSuccessful()
-    }
+    override var mainEntityWithId = mainEntity.copy(id = mainEntityId)
 }

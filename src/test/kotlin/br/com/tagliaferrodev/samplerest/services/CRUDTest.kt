@@ -12,13 +12,13 @@ interface CRUDTest<T : Any, S : Any, R : JpaRepository<T, Int>> {
 
     var mainEntity: T
 
+    var mainEntityWithId: T
+
     var entities: List<T>
 
-    var tester: CRUDTestExecutor<T, S, R>
-
-    fun setup()
-
     fun saveEntityShouldPersistSuccessfully()
+
+    fun getEntityById(): T?
 
     fun getEntityByIdShouldReturnSuccessfully()
 

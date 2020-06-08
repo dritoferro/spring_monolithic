@@ -4,7 +4,6 @@ import br.com.tagliaferrodev.samplerest.domain.Nacionalidade
 import br.com.tagliaferrodev.samplerest.domain.Pais
 import br.com.tagliaferrodev.samplerest.repositories.NacionalidadeRepository
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -12,15 +11,13 @@ import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
-class NacionalidadeServiceTest : CRUDTest<Nacionalidade, NacionalidadeService, NacionalidadeRepository> {
+class NacionalidadeServiceTest : CRUDTestExecutor<Nacionalidade, NacionalidadeService, NacionalidadeRepository>() {
 
     @Mock
     override lateinit var repository: NacionalidadeRepository
 
     @InjectMocks
     override lateinit var service: NacionalidadeService
-
-    override var mainEntityId: Int = 1
 
     override var mainEntity: Nacionalidade = Nacionalidade(
             nomeMasculino = "Brasileiro",
@@ -51,48 +48,13 @@ class NacionalidadeServiceTest : CRUDTest<Nacionalidade, NacionalidadeService, N
                     pais = Pais(id = 5))
     )
 
-    override lateinit var tester: CRUDTestExecutor<Nacionalidade, NacionalidadeService, NacionalidadeRepository>
-
-    @BeforeEach
-    override fun setup() {
-        tester = CRUDTestExecutor(mainEntity, mainEntity.copy(id = mainEntityId), mainEntityId, entities, service, repository)
-    }
-
-    @Test
-    override fun saveEntityShouldPersistSuccessfully() {
-        tester.persistTest()
-    }
+    override var mainEntityWithId = mainEntity.copy(id = mainEntityId)
 
     @Test
     override fun getEntityByIdShouldReturnSuccessfully() {
-        val consulta = tester.getByIdTest(false)
+        val consulta = getEntityById()
 
         assertEquals(mainEntity.nomeMasculino, consulta?.nomeMasculino)
         assertEquals(mainEntity.nomeFeminino, consulta?.nomeFeminino)
-    }
-
-    @Test
-    override fun getEntityByWrongIdShouldThrowException() {
-        tester.throwExceptionOnGetById()
-    }
-
-    @Test
-    override fun getListForThisEntity() {
-        tester.testFindAll()
-    }
-
-    @Test
-    override fun updateEntityShouldPersistSuccessfully() {
-        tester.updateWithSuccessful()
-    }
-
-    @Test
-    override fun updateEntityWithoutIdShouldThrowException() {
-        tester.throwExceptionOnUpdate()
-    }
-
-    @Test
-    override fun deleteEntitySuccessfully() {
-        tester.deleteWithSuccessful()
     }
 }
