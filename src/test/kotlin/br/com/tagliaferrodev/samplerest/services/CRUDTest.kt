@@ -1,6 +1,8 @@
 package br.com.tagliaferrodev.samplerest.services
 
-interface CRUDTest<T : Any, S : Any, R : Any> {
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface CRUDTest<T : Any, S : Any, R : JpaRepository<T, Int>> {
 
     var repository: R
 
@@ -11,6 +13,10 @@ interface CRUDTest<T : Any, S : Any, R : Any> {
     var mainEntity: T
 
     var entities: List<T>
+
+    var tester: CRUDTestExecutor<T, S, R>
+
+    fun setup()
 
     fun saveEntityShouldPersistSuccessfully()
 

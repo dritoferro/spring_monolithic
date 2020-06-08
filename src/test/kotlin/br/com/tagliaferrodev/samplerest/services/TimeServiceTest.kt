@@ -8,6 +8,7 @@ import br.com.tagliaferrodev.samplerest.domain.enums.Sexo
 import br.com.tagliaferrodev.samplerest.repositories.TimeRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -98,6 +99,13 @@ class TimeServiceTest : CRUDTest<Time, TimeService, TimeRepository> {
                             nacionalidade = Nacionalidade(id = 1),
                             sexo = Sexo.FEMININO))
     )
+
+    override lateinit var tester: CRUDTestExecutor<Time, TimeService, TimeRepository>
+
+    @BeforeEach
+    override fun setup() {
+        tester = CRUDTestExecutor(mainEntity, mainEntity.copy(id = mainEntityId), mainEntityId, entities, service, repository)
+    }
 
     @Test
     override fun saveEntityShouldPersistSuccessfully() {

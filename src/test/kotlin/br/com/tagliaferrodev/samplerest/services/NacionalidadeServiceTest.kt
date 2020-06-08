@@ -5,6 +5,7 @@ import br.com.tagliaferrodev.samplerest.domain.Pais
 import br.com.tagliaferrodev.samplerest.repositories.NacionalidadeRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -54,6 +55,13 @@ class NacionalidadeServiceTest : CRUDTest<Nacionalidade, NacionalidadeService, N
                     nomeFeminino = "Emiradense",
                     pais = Pais(id = 5))
     )
+
+    override lateinit var tester: CRUDTestExecutor<Nacionalidade, NacionalidadeService, NacionalidadeRepository>
+
+    @BeforeEach
+    override fun setup() {
+        tester = CRUDTestExecutor(mainEntity, mainEntity.copy(id = mainEntityId), mainEntityId, entities, service, repository)
+    }
 
     @Test
     override fun saveEntityShouldPersistSuccessfully() {
