@@ -17,7 +17,7 @@ data class Pais(
         val nome: String? = null,
 
         @field:NotNull
-        @field:Size(min = 1, max = 3)
+        @field:Size(min = 1, max = 7)
         val ddi: String? = null,
 
         @field:NotNull

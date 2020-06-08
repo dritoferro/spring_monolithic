@@ -16,24 +16,24 @@ class UsuarioService(private val repository: UsuarioRepository) {
     }
 
     @Transactional
-    fun save(usuario: Usuario): Boolean {
+    fun save(usuario: Usuario): Usuario {
         usuario.senha = getEnconder().encode(usuario.senha)
         repository.save(usuario)
 
-        return usuario.id != null
+        return usuario
     }
 
     @Transactional
     fun findById(id: Int) = repository.findById(id).orElseThrow { throw EntityNotFoundException("Usuário não encontrado") }
 
     @Transactional
-    fun update(usuario: Usuario): Boolean {
+    fun update(usuario: Usuario): Usuario {
         if (usuario.id != null) {
             val user = findById(usuario.id)
 
             repository.save(usuario.copy(senha = user.senha))
 
-            return true
+            return usuario
         }
         throw IllegalArgumentException("Não pode atualizar o usuário sem id")
     }
