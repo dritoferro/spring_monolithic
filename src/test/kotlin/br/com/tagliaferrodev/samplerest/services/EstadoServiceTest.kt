@@ -3,18 +3,12 @@ package br.com.tagliaferrodev.samplerest.services
 import br.com.tagliaferrodev.samplerest.domain.Estado
 import br.com.tagliaferrodev.samplerest.domain.Pais
 import br.com.tagliaferrodev.samplerest.repositories.EstadoRepository
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
-import java.util.*
-import javax.persistence.EntityNotFoundException
 
 @ExtendWith(MockitoExtension::class)
 class EstadoServiceTest : CRUDTest<Estado, EstadoService, EstadoRepository> {
@@ -65,66 +59,36 @@ class EstadoServiceTest : CRUDTest<Estado, EstadoService, EstadoRepository> {
 
     @Test
     override fun saveEntityShouldPersistSuccessfully() {
-        `when`(repository.save(mainEntity)).thenReturn(mainEntity.copy(id = mainEntityId))
-
-        val persist = service.save(mainEntity)
-
-        assertNotNull(persist.id)
-
-        verify(repository, times(1)).save(mainEntity)
+        tester.persistTest()
     }
 
     @Test
     override fun getEntityByIdShouldReturnSuccessfully() {
-        `when`(repository.findById(mainEntityId)).thenReturn(Optional.of(mainEntity.copy(id = mainEntityId)))
-
-        val consulta = service.findById(mainEntityId)
-
-        assertNotNull(consulta.id)
-        assertEquals(mainEntity.nome, consulta.nome)
+        tester.getByIdTest()
     }
 
     @Test
     override fun getEntityByWrongIdShouldThrowException() {
-        assertThrows<EntityNotFoundException> {
-            service.findById(0)
-        }
+        tester.throwExceptionOnGetById()
     }
 
     @Test
     override fun getListForThisEntity() {
-        `when`(repository.findAll()).thenReturn(entities)
-
-        val list = service.findAll()
-
-        assertEquals(5, list.size)
+        tester.testFindAll()
     }
 
     @Test
     override fun updateEntityShouldPersistSuccessfully() {
-        val mainEntityWithId = mainEntity.copy(id = mainEntityId)
-
-        `when`(repository.findById(mainEntityId)).thenReturn(Optional.of(mainEntityWithId))
-        `when`(repository.save(mainEntityWithId)).thenReturn(mainEntityWithId)
-
-        service.update(mainEntityWithId)
-
-        verify(repository, times(1)).save(mainEntityWithId)
+        tester.updateWithSuccessful()
     }
 
     @Test
     override fun updateEntityWithoutIdShouldThrowException() {
-        assertThrows<IllegalArgumentException> {
-            service.update(mainEntity)
-        }
+        tester.throwExceptionOnUpdate()
     }
 
     @Test
     override fun deleteEntitySuccessfully() {
-        doNothing().`when`(repository).deleteById(mainEntityId)
-
-        service.delete(mainEntityId)
-
-        verify(repository, times(1)).deleteById(mainEntityId)
+        tester.deleteWithSuccessful()
     }
 }

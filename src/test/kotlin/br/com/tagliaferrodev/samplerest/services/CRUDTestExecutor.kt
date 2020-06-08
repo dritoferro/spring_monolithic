@@ -11,12 +11,12 @@ import java.util.*
 import javax.persistence.EntityNotFoundException
 
 class CRUDTestExecutor<T : Any, S : Any, R : JpaRepository<T, Int>>(
-        val entity: T,
-        val entityWithId: T,
-        val entityId: Int,
-        val entities: List<T>,
-        val service: S,
-        val repository: R
+        private val entity: T,
+        private val entityWithId: T,
+        private val entityId: Int,
+        private val entities: List<T>,
+        private val service: S,
+        private val repository: R
 ) {
 
     fun persistTest() {
