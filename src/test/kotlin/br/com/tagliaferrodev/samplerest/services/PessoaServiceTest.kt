@@ -71,7 +71,7 @@ class PessoaServiceTest : CRUDTest<Pessoa, PessoaService, PessoaRepository> {
     )
 
     @Test
-    override fun `save entity should persist successfully`() {
+    override fun saveEntityShouldPersistSuccessfully() {
         `when`(repository.save(mainEntity)).thenReturn(mainEntity.copy(id = mainEntityId))
 
         val persist = service.save(mainEntity)
@@ -82,7 +82,7 @@ class PessoaServiceTest : CRUDTest<Pessoa, PessoaService, PessoaRepository> {
     }
 
     @Test
-    override fun `get entity by id should return successfully`() {
+    override fun getEntityByIdShouldReturnSuccessfully() {
         `when`(repository.findById(mainEntityId)).thenReturn(Optional.of(mainEntity.copy(id = mainEntityId)))
 
         val consulta = service.findById(mainEntityId)
@@ -92,14 +92,14 @@ class PessoaServiceTest : CRUDTest<Pessoa, PessoaService, PessoaRepository> {
     }
 
     @Test
-    override fun `get entity by id should throw exception`() {
+    override fun getEntityByWrongIdShouldThrowException() {
         assertThrows<EntityNotFoundException> {
             service.findById(0)
         }
     }
 
     @Test
-    override fun `get list for this entity`() {
+    override fun getListForThisEntity() {
         `when`(repository.findAll()).thenReturn(entities)
 
         val list = service.findAll()
@@ -108,7 +108,7 @@ class PessoaServiceTest : CRUDTest<Pessoa, PessoaService, PessoaRepository> {
     }
 
     @Test
-    override fun `update entity should persist successfully`() {
+    override fun updateEntityShouldPersistSuccessfully() {
         val mainEntityWithId = mainEntity.copy(id = mainEntityId)
 
         `when`(repository.findById(mainEntityId)).thenReturn(Optional.of(mainEntityWithId))
@@ -120,14 +120,14 @@ class PessoaServiceTest : CRUDTest<Pessoa, PessoaService, PessoaRepository> {
     }
 
     @Test
-    override fun `update entity should throw exception`() {
+    override fun updateEntityWithoutIdShouldThrowException() {
         assertThrows<IllegalArgumentException> {
             service.update(mainEntity)
         }
     }
 
     @Test
-    override fun `delete entity successfully`() {
+    override fun deleteEntitySuccessfully() {
         doNothing().`when`(repository).deleteById(mainEntityId)
 
         service.delete(mainEntityId)

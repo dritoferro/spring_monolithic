@@ -26,7 +26,7 @@ class UsuarioServiceTest {
     private val userDTO = CreateUserDTO(nome = "Test", apelido = "tester", email = "tester@test.com.br", senha = "test")
 
     @Test
-    fun `should return Usuario when save is performed correctly`() {
+    fun shouldReturnUsuarioWhenSaveIsPerformedCorrectly() {
         val user = usuarioService.save(userDTO.fromDTO())
 
         assertNotNull(user)
@@ -35,7 +35,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    fun `should return Usuario when find by id is called`() {
+    fun shouldReturnUsuarioWhenFindByIdIsCalled() {
         `when`(usuarioRepository.findById(1)).thenReturn(Optional.of(userDTO.fromDTO().copy(id = 1)))
 
         val find = usuarioService.findById(1)
@@ -45,14 +45,14 @@ class UsuarioServiceTest {
     }
 
     @Test
-    fun `should throw exception when not found user`() {
+    fun shouldThrowExceptionWhenUserIsNotFound() {
         assertThrows<EntityNotFoundException> {
             usuarioService.findById(0)
         }
     }
 
     @Test
-    fun `should update successfully`() {
+    fun shouldUpdateSuccessfully() {
         val usuario = userDTO.fromDTO().copy(id = 1)
 
         `when`(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario))
@@ -63,14 +63,14 @@ class UsuarioServiceTest {
     }
 
     @Test
-    fun `should throw exception on update`() {
+    fun shouldThrowExceptionOnUpdate() {
         assertThrows<IllegalArgumentException> {
             usuarioService.update(userDTO.fromDTO())
         }
     }
 
     @Test
-    fun `find for login should return the user`() {
+    fun findForLoginShouldReturnTheUser() {
         `when`(usuarioRepository.findByEmailOrApelidoAndBloqueadoFalse(userDTO.apelido, userDTO.apelido)).thenReturn(Optional.of(userDTO.fromDTO().copy(id = 1)))
 
         val find = usuarioService.findForLogin(userDTO.apelido)
@@ -81,14 +81,14 @@ class UsuarioServiceTest {
     }
 
     @Test
-    fun `find for login should throw exception`() {
+    fun findForLoginShouldThrowExceptionWhenNotFound() {
         assertThrows<EntityNotFoundException> {
             usuarioService.findForLogin(userDTO.email)
         }
     }
 
     @Test
-    fun `delete should work as expected`() {
+    fun deleteShouldWorkAsExpected() {
         doNothing().`when`(usuarioRepository).deleteById(1)
 
         usuarioService.delete(1)

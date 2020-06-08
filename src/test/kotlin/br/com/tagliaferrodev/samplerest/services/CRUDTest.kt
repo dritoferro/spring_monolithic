@@ -12,17 +12,17 @@ interface CRUDTest<T : Any, S : Any, R : Any> {
 
     var entities: List<T>
 
-    fun `save entity should persist successfully`()
+    fun saveEntityShouldPersistSuccessfully()
 
-    fun `get entity by id should return successfully`()
+    fun getEntityByIdShouldReturnSuccessfully()
 
-    fun `get entity by id should throw exception`()
+    fun getEntityByWrongIdShouldThrowException()
 
-    fun `get list for this entity`()
+    fun getListForThisEntity()
 
-    fun `update entity should persist successfully`()
+    fun updateEntityShouldPersistSuccessfully()
 
-    fun `update entity should throw exception`()
+    fun updateEntityWithoutIdShouldThrowException()
 
-    fun `delete entity successfully`()
+    fun deleteEntitySuccessfully()
 }

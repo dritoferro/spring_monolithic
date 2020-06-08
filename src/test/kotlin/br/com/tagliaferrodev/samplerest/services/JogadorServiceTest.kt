@@ -28,19 +28,21 @@ class JogadorServiceTest : CRUDTest<Jogador, JogadorService, JogadorRepository> 
 
     override var mainEntityId: Int = 1
 
+    private val corinthians = Time(nome = "Corinthians Futebol Clube",
+            coresPrincipais = "Preto e Branco",
+            municipio = Municipio(id = 1),
+            verbaPrincipal = 180.000,
+            treinador = Pessoa(nome = "Técnico 1",
+                    cidadeNatal = Municipio(id = 1),
+                    dataNascimento = LocalDate.of(1980, 10, 5),
+                    nacionalidade = Nacionalidade(id = 1),
+                    sexo = Sexo.MASCULINO))
+
     override var mainEntity: Jogador = Jogador(
             nomeProfissional = "Cássio",
             dataContratacao = LocalDate.of(2015, 1, 14),
             posicao = Posicao.GOLEIRO,
-            time = Time(nome = "Corinthians Futebol Clube",
-                    coresPrincipais = "Preto e Branco",
-                    municipio = Municipio(id = 1),
-                    verbaPrincipal = 180.000,
-                    treinador = Pessoa(nome = "Técnico 1",
-                            cidadeNatal = Municipio(id = 1),
-                            dataNascimento = LocalDate.of(1980, 10, 5),
-                            nacionalidade = Nacionalidade(id = 1),
-                            sexo = Sexo.MASCULINO)),
+            time = corinthians,
             pessoa = Pessoa(id = 1),
             salario = 45.000
     )
@@ -50,81 +52,41 @@ class JogadorServiceTest : CRUDTest<Jogador, JogadorService, JogadorRepository> 
                     nomeProfissional = "Cássio",
                     dataContratacao = LocalDate.of(2015, 1, 14),
                     posicao = Posicao.GOLEIRO,
-                    time = Time(nome = "Corinthians Futebol Clube",
-                            coresPrincipais = "Preto e Branco",
-                            municipio = Municipio(id = 1),
-                            verbaPrincipal = 180.000,
-                            treinador = Pessoa(nome = "Técnico 1",
-                                    cidadeNatal = Municipio(id = 1),
-                                    dataNascimento = LocalDate.of(1980, 10, 5),
-                                    nacionalidade = Nacionalidade(id = 1),
-                                    sexo = Sexo.MASCULINO)),
+                    time = corinthians,
                     pessoa = Pessoa(id = 1),
                     salario = 45.000),
             Jogador(
                     nomeProfissional = "Gil",
                     dataContratacao = LocalDate.of(2017, 1, 14),
                     posicao = Posicao.ZAGUEIRO,
-                    time = Time(nome = "Corinthians Futebol Clube",
-                            coresPrincipais = "Preto e Branco",
-                            municipio = Municipio(id = 1),
-                            verbaPrincipal = 180.000,
-                            treinador = Pessoa(nome = "Técnico 1",
-                                    cidadeNatal = Municipio(id = 1),
-                                    dataNascimento = LocalDate.of(1980, 10, 5),
-                                    nacionalidade = Nacionalidade(id = 1),
-                                    sexo = Sexo.MASCULINO)),
+                    time = corinthians,
                     pessoa = Pessoa(id = 2),
                     salario = 30.000),
             Jogador(
                     nomeProfissional = "Fagner",
                     dataContratacao = LocalDate.of(2018, 1, 14),
                     posicao = Posicao.LATERAL_DIR,
-                    time = Time(nome = "Corinthians Futebol Clube",
-                            coresPrincipais = "Preto e Branco",
-                            municipio = Municipio(id = 1),
-                            verbaPrincipal = 180.000,
-                            treinador = Pessoa(nome = "Técnico 1",
-                                    cidadeNatal = Municipio(id = 1),
-                                    dataNascimento = LocalDate.of(1980, 10, 5),
-                                    nacionalidade = Nacionalidade(id = 1),
-                                    sexo = Sexo.MASCULINO)),
+                    time = corinthians,
                     pessoa = Pessoa(id = 1),
                     salario = 22.000),
             Jogador(
                     nomeProfissional = "Pedrinho",
                     dataContratacao = LocalDate.of(2019, 1, 14),
                     posicao = Posicao.MEIA,
-                    time = Time(nome = "Corinthians Futebol Clube",
-                            coresPrincipais = "Preto e Branco",
-                            municipio = Municipio(id = 1),
-                            verbaPrincipal = 180.000,
-                            treinador = Pessoa(nome = "Técnico 1",
-                                    cidadeNatal = Municipio(id = 1),
-                                    dataNascimento = LocalDate.of(1980, 10, 5),
-                                    nacionalidade = Nacionalidade(id = 1),
-                                    sexo = Sexo.MASCULINO)),
+                    time = corinthians,
                     pessoa = Pessoa(id = 1),
                     salario = 15.000),
             Jogador(
                     nomeProfissional = "Vagner Love",
                     dataContratacao = LocalDate.of(2012, 1, 14),
                     posicao = Posicao.ATACANTE,
-                    time = Time(nome = "Corinthians Futebol Clube",
-                            coresPrincipais = "Preto e Branco",
-                            municipio = Municipio(id = 1),
-                            verbaPrincipal = 180.000,
-                            treinador = Pessoa(nome = "Técnico 1",
-                                    cidadeNatal = Municipio(id = 1),
-                                    dataNascimento = LocalDate.of(1980, 10, 5),
-                                    nacionalidade = Nacionalidade(id = 1),
-                                    sexo = Sexo.MASCULINO)),
+                    time = corinthians,
                     pessoa = Pessoa(id = 1),
                     salario = 75.000)
     )
 
     @Test
-    override fun `save entity should persist successfully`() {
+    override fun saveEntityShouldPersistSuccessfully() {
         `when`(repository.save(mainEntity)).thenReturn(mainEntity.copy(id = mainEntityId))
 
         val persist = service.save(mainEntity)
@@ -135,7 +97,7 @@ class JogadorServiceTest : CRUDTest<Jogador, JogadorService, JogadorRepository> 
     }
 
     @Test
-    override fun `get entity by id should return successfully`() {
+    override fun getEntityByIdShouldReturnSuccessfully() {
         `when`(repository.findById(mainEntityId)).thenReturn(Optional.of(mainEntity.copy(id = mainEntityId)))
 
         val consulta = service.findById(mainEntityId)
@@ -146,14 +108,14 @@ class JogadorServiceTest : CRUDTest<Jogador, JogadorService, JogadorRepository> 
     }
 
     @Test
-    override fun `get entity by id should throw exception`() {
+    override fun getEntityByWrongIdShouldThrowException() {
         assertThrows<EntityNotFoundException> {
             service.findById(0)
         }
     }
 
     @Test
-    override fun `get list for this entity`() {
+    override fun getListForThisEntity() {
         `when`(repository.findAll()).thenReturn(entities)
 
         val list = service.findAll()
@@ -162,7 +124,7 @@ class JogadorServiceTest : CRUDTest<Jogador, JogadorService, JogadorRepository> 
     }
 
     @Test
-    override fun `update entity should persist successfully`() {
+    override fun updateEntityShouldPersistSuccessfully() {
         val mainEntityWithId = mainEntity.copy(id = mainEntityId)
 
         `when`(repository.findById(mainEntityId)).thenReturn(Optional.of(mainEntityWithId))
@@ -174,14 +136,14 @@ class JogadorServiceTest : CRUDTest<Jogador, JogadorService, JogadorRepository> 
     }
 
     @Test
-    override fun `update entity should throw exception`() {
+    override fun updateEntityWithoutIdShouldThrowException() {
         assertThrows<IllegalArgumentException> {
             service.update(mainEntity)
         }
     }
 
     @Test
-    override fun `delete entity successfully`() {
+    override fun deleteEntitySuccessfully() {
         doNothing().`when`(repository).deleteById(mainEntityId)
 
         service.delete(mainEntityId)
