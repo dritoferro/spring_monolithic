@@ -30,25 +30,25 @@ class PaisServiceTest : CRUDTestExecutor<Pais, PaisService, PaisRepository>() {
                     codigoIso2 = "BR",
                     codigoIso3 = "BRA"),
             Pais(
-                    nome = "Estados Unidos da América",
                     ddi = "+1",
+                    nome = "Estados Unidos da América",
                     codigoIso2 = "US",
                     codigoIso3 = "USA"),
             Pais(
                     nome = "África do Sul",
-                    ddi = "+27",
                     codigoIso2 = "ZA",
+                    ddi = "+27",
                     codigoIso3 = "ZAF"),
             Pais(
                     nome = "Alemanha",
+                    codigoIso3 = "DEU",
                     ddi = "+49",
-                    codigoIso2 = "DE",
-                    codigoIso3 = "DEU"),
+                    codigoIso2 = "DE"),
             Pais(
                     nome = "Emirados Árabes Unidos",
-                    ddi = "+971",
                     codigoIso2 = "AE",
-                    codigoIso3 = "ARE")
+                    codigoIso3 = "ARE",
+                    ddi = "+971")
     )
 
     override var mainEntityWithId = mainEntity.copy(id = mainEntityId)
