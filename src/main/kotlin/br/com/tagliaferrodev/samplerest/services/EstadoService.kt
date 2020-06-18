@@ -37,7 +37,7 @@ class EstadoService(private val repository: EstadoRepository) {
         val search = repository.findAllByPais_Id(id).orElse(null)
 
         if (search.isNullOrEmpty()) {
-            throw EntityNotFoundException("Não foi encontrado estados para o país informado")
+            throw EntityNotFoundException("Não foram encontrados estados para o país informado")
         }
 
         val estados = search.map { EstadoDTO(it) }

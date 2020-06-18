@@ -1,24 +1,26 @@
 package br.com.tagliaferrodev.samplerest.domain.dto
 
-import br.com.tagliaferrodev.samplerest.domain.Estado
+import br.com.tagliaferrodev.samplerest.domain.Municipio
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonInclude
 
-data class EstadoDTO(
+@JsonInclude(JsonInclude.Include.NON_NULL)
+data class MunicipioDTO(
         @JsonIgnore
-        val estado: Estado? = null
+        val municipio: Municipio? = null
 ) {
     @delegate:kotlin.jvm.Transient
     val id: Int? by lazy {
-        estado?.id
+        municipio?.id
     }
 
     @delegate:kotlin.jvm.Transient
     val nome: String? by lazy {
-        estado?.nome
+        municipio?.nome
     }
 
     @delegate:kotlin.jvm.Transient
     val sigla: String? by lazy {
-        estado?.sigla
+        municipio?.sigla
     }
 }
