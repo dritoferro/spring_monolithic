@@ -1,18 +1,18 @@
 package br.com.tagliaferrodev.samplerest.controllers
 
+import br.com.tagliaferrodev.samplerest.domain.Time
+import br.com.tagliaferrodev.samplerest.utils.generator.JogadorGenerator
 import br.com.tagliaferrodev.samplerest.utils.generator.PessoaGenerator
 import br.com.tagliaferrodev.samplerest.utils.generator.TimeGenerator
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("generators")
 class GeneratorController(val pessoaGenerator: PessoaGenerator,
-                          val timeGenerator: TimeGenerator) {
+                          val timeGenerator: TimeGenerator,
+                          val jogadorGenerator: JogadorGenerator) {
 
     @GetMapping("people/{quantity}")
     fun generatePeople(@PathVariable quantity: Int): ResponseEntity<String> {
@@ -30,5 +30,12 @@ class GeneratorController(val pessoaGenerator: PessoaGenerator,
         timeGenerator.generateTime()
 
         return ResponseEntity.ok("Time gerado com sucesso!")
+    }
+
+    @GetMapping("jogadores")
+    fun generateJogadores(@RequestParam("time") id: Int?): ResponseEntity<Time> {
+        val time = jogadorGenerator.populateTime(timeId = id)
+
+        return ResponseEntity.ok(time)
     }
 }
