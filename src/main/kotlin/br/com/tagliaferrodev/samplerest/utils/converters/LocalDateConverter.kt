@@ -8,7 +8,7 @@ import javax.persistence.Converter
 @Converter
 class LocalDateConverter : AttributeConverter<LocalDate, Timestamp> {
     override fun convertToDatabaseColumn(attribute: LocalDate?): Timestamp? {
-        return attribute?.toEpochDay()?.let { Timestamp(it) }
+        return Timestamp.valueOf(attribute?.atStartOfDay())
     }
 
     override fun convertToEntityAttribute(dbData: Timestamp?): LocalDate? {
