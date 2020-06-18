@@ -18,7 +18,12 @@ class TimeGenerator(private val service: TimeService,
         val treinador = pessoaGenerator.generateNPeople(1, "Treinador ${municipio.nome}")[0]
 
         val cores1 = Randoms.nextInt(cores.size)
-        val cores2 = Randoms.nextInt(cores.size)
+        var cores2 = Randoms.nextInt(cores.size)
+
+        while (cores2 == cores1) {
+            cores2 = Randoms.nextInt(cores.size)
+        }
+
         val coresPrincipais = "${cores[cores1]}, ${cores[cores2]}"
 
         val time = Time(
