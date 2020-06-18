@@ -29,4 +29,7 @@ class PessoaService(private val repository: PessoaRepository) {
 
     @Transactional
     fun findAll() = repository.findAll()
+
+    @Transactional
+    fun findLastPessoaId() = repository.getLastPessoaId().orElse(0)
 }
