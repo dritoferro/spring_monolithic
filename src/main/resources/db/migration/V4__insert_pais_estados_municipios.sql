@@ -1,11 +1,3 @@
-TRUNCATE TABLE jogadores,
-    times,
-    pessoas,
-    nacionalidades,
-    municipios,
-    estados,
-    paises RESTART IDENTITY;
-
 INSERT INTO paises(nome, ddi, codigo_iso2, codigo_iso3)
 VALUES ('Brasil', '+55', 'BR', 'BRA');
 
@@ -11178,3 +11170,6 @@ INSERT INTO municipios (nome, estado_id)
 VALUES ('Vila Propício', 9);
 INSERT INTO municipios (nome, estado_id)
 VALUES ('Brasília', 7);
+
+INSERT INTO nacionalidades(nome_masculino, nome_feminino, pais_id)
+VALUES ('Brasileiro', 'Brasileira', 1);
