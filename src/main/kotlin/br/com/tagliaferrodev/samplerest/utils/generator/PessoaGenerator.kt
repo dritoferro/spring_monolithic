@@ -13,21 +13,25 @@ import java.time.Month
 class PessoaGenerator(private val service: PessoaService,
                       private val municipioService: MunicipioService) {
 
-    fun generateNPeople(quantity: Int) {
+    fun generateNPeople(quantity: Int, name: String = "Pessoa"): List<Pessoa> {
         var nextId = service.findLastPessoaId() + 1
         val municipios = municipioService.findAll()
+        val pessoas = mutableListOf<Pessoa>()
 
         (1..quantity).forEach { _ ->
             val pessoa = Pessoa(
-                    nome = "Pessoa $nextId",
+                    nome = "$name $nextId",
                     sexo = Sexo.values()[Randoms.nextInt(Sexo.values().size)],
                     nacionalidade = Nacionalidade(id = 1),
                     cidadeNatal = Randoms.randomEntity(municipios),
                     dataNascimento = Randoms.randomDate(LocalDate.of(1980, Month.JANUARY, 1), LocalDate.of(2002, Month.JANUARY, 1)))
 
             service.save(pessoa)
+            pessoas.add(pessoa)
 
             nextId = pessoa.id!! + 1
         }
+
+        return pessoas
     }
 }

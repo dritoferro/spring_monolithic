@@ -16,4 +16,6 @@ object Randoms {
 
         return LocalDate.ofEpochDay(rand)
     }
+
+    fun nextDouble(limit: Double) = ThreadLocalRandom.current().nextDouble(limit)
 }
