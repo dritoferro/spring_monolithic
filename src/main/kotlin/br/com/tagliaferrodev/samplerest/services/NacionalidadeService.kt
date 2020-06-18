@@ -29,4 +29,7 @@ class NacionalidadeService(private val repository: NacionalidadeRepository) {
 
     @Transactional
     fun findAll() = repository.findAll()
+
+    @Transactional
+    fun findByPaisId(id: Int) = repository.findByPais_Id(id).orElseThrow { EntityNotFoundException("Nacionalidade não encontrada para o país informado") }
 }
