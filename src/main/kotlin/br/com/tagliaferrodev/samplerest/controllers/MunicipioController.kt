@@ -1,6 +1,7 @@
 package br.com.tagliaferrodev.samplerest.controllers
 
 import br.com.tagliaferrodev.samplerest.domain.Municipio
+import br.com.tagliaferrodev.samplerest.domain.dto.MunicipiosPorEstadoDTO
 import br.com.tagliaferrodev.samplerest.services.MunicipioService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -34,5 +35,10 @@ class MunicipioController(val service: MunicipioService) {
     @DeleteMapping("{id}")
     fun deleteMunicipio(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
+    }
+
+    @GetMapping("estado/{id}")
+    fun findAllByEstado(@PathVariable id: Int): ResponseEntity<MunicipiosPorEstadoDTO> {
+        return ResponseEntity.ok(service.findAllByEstado(id))
     }
 }

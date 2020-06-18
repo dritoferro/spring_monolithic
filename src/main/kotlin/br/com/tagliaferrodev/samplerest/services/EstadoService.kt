@@ -1,6 +1,8 @@
 package br.com.tagliaferrodev.samplerest.services
 
 import br.com.tagliaferrodev.samplerest.domain.Estado
+import br.com.tagliaferrodev.samplerest.domain.dto.EstadoDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.EstadosPorPaisDTO
 import br.com.tagliaferrodev.samplerest.repositories.EstadoRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -29,4 +31,17 @@ class EstadoService(private val repository: EstadoRepository) {
 
     @Transactional
     fun findAll() = repository.findAll()
+
+    @Transactional
+    fun findByPaisId(id: Int): EstadosPorPaisDTO {
+        val search = repository.findAllByPais_Id(id).orElse(null)
+
+        if (search.isNullOrEmpty()) {
+            throw EntityNotFoundException("Não foram encontrados estados para o país informado")
+        }
+
+        val estados = search.map { EstadoDTO(it) }
+
+        return EstadosPorPaisDTO(pais = search[0].pais, estados = estados)
+    }
 }
