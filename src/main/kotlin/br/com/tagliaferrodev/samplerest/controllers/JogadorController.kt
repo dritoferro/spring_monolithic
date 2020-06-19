@@ -49,4 +49,10 @@ class JogadorController(val service: JogadorService) {
                                 @RequestParam("max") max: Double): ResponseEntity<List<JogadorWithTimeDTO>> {
         return ResponseEntity.ok(service.findBySalarioIn(min, max))
     }
+
+    @GetMapping("idade")
+    fun getJogadoresWithIdade(@RequestParam("min") min: Long,
+                              @RequestParam("max") max: Long): ResponseEntity<List<JogadorWithTimeDTO>> {
+        return ResponseEntity.ok(service.findByIdadeIn(min, max))
+    }
 }

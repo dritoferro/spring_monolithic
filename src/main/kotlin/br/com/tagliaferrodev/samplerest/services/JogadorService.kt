@@ -7,6 +7,7 @@ import br.com.tagliaferrodev.samplerest.domain.dto.jogador.JogadorWithTimeDTO
 import br.com.tagliaferrodev.samplerest.repositories.JogadorRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 import javax.persistence.EntityNotFoundException
 
 @Service
@@ -44,6 +45,17 @@ class JogadorService(private val repository: JogadorRepository,
     @Transactional
     fun findBySalarioIn(min: Double, max: Double): List<JogadorWithTimeDTO> {
         val search = repository.findAllBySalarioBetweenAndDataDemissaoIsNull(min, max).orElse(emptyList())
+
+        return search.map { JogadorWithTimeDTO(it) }
+    }
+
+    @Transactional
+    fun findByIdadeIn(min: Long, max: Long): List<JogadorWithTimeDTO> {
+        val now = LocalDate.now()
+        val startDate = now.minusYears(min)
+        val endDate = now.minusYears(max)
+
+        val search = repository.findWithAgeBetween(endDate, startDate).orElse(emptyList())
 
         return search.map { JogadorWithTimeDTO(it) }
     }
