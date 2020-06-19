@@ -31,7 +31,7 @@ class TimeGenerator(private val service: TimeService,
                 treinador = treinador,
                 municipio = municipio,
                 coresPrincipais = coresPrincipais,
-                verbaPrincipal = Randoms.nextDouble(1_000_000_000_000.00)
+                verbaPrincipal = Randoms.nextDouble(1_000_000.00)
         )
 
         service.save(time)
