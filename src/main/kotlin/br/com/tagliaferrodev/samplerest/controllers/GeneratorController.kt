@@ -38,4 +38,11 @@ class GeneratorController(val pessoaGenerator: PessoaGenerator,
 
         return ResponseEntity.ok(time)
     }
+
+    @GetMapping("jogadores/dispensados/{id}")
+    fun generateJogadoresDispensados(@PathVariable id: Int): ResponseEntity<String> {
+        jogadorGenerator.generateJogadoresDispensados(id)
+
+        return ResponseEntity.ok("Jogadores dispensados gerados com sucesso!")
+    }
 }
