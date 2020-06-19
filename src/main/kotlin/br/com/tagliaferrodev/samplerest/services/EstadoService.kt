@@ -1,8 +1,8 @@
 package br.com.tagliaferrodev.samplerest.services
 
 import br.com.tagliaferrodev.samplerest.domain.Estado
-import br.com.tagliaferrodev.samplerest.domain.dto.EstadoDTO
-import br.com.tagliaferrodev.samplerest.domain.dto.EstadosPorPaisDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.enderecos.EstadoDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.enderecos.EstadosPorPaisDTO
 import br.com.tagliaferrodev.samplerest.repositories.EstadoRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

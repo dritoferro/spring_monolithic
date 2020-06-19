@@ -1,7 +1,7 @@
 package br.com.tagliaferrodev.samplerest.controllers
 
 import br.com.tagliaferrodev.samplerest.domain.Estado
-import br.com.tagliaferrodev.samplerest.domain.dto.EstadosPorPaisDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.enderecos.EstadosPorPaisDTO
 import br.com.tagliaferrodev.samplerest.services.EstadoService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
