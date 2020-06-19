@@ -3,6 +3,7 @@ package br.com.tagliaferrodev.samplerest.services
 import br.com.tagliaferrodev.samplerest.domain.Jogador
 import br.com.tagliaferrodev.samplerest.domain.dto.TimeDTO
 import br.com.tagliaferrodev.samplerest.domain.dto.jogador.JogadorDispensadoTimeDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.jogador.JogadorWithTimeDTO
 import br.com.tagliaferrodev.samplerest.repositories.JogadorRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -38,5 +39,12 @@ class JogadorService(private val repository: JogadorRepository,
         val jogadores = repository.findAllByTime_IdAndDataDemissaoIsNotNull(id).orElse(emptyList())
 
         return JogadorDispensadoTimeDTO(time = TimeDTO(time), jogadores = jogadores)
+    }
+
+    @Transactional
+    fun findBySalarioIn(min: Double, max: Double): List<JogadorWithTimeDTO> {
+        val search = repository.findAllBySalarioBetweenAndDataDemissaoIsNull(min, max).orElse(emptyList())
+
+        return search.map { JogadorWithTimeDTO(it) }
     }
 }

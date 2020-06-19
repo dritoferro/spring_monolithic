@@ -9,4 +9,6 @@ import java.util.*
 interface JogadorRepository : JpaRepository<Jogador, Int> {
 
     fun findAllByTime_IdAndDataDemissaoIsNotNull(id: Int): Optional<List<Jogador>>
+
+    fun findAllBySalarioBetweenAndDataDemissaoIsNull(min: Double, max: Double): Optional<List<Jogador>>
 }
