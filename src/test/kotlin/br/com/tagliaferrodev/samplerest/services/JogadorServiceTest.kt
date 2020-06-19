@@ -18,6 +18,9 @@ class JogadorServiceTest : CRUDTestExecutor<Jogador, JogadorService, JogadorRepo
     @Mock
     override lateinit var repository: JogadorRepository
 
+    @Mock
+    lateinit var timeService: TimeService
+
     @InjectMocks
     override lateinit var service: JogadorService
 
