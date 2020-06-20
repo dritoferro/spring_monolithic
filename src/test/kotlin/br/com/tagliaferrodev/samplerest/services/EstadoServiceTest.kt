@@ -2,6 +2,7 @@ package br.com.tagliaferrodev.samplerest.services
 
 import br.com.tagliaferrodev.samplerest.domain.Estado
 import br.com.tagliaferrodev.samplerest.domain.Pais
+import br.com.tagliaferrodev.samplerest.domain.dto.enderecos.EstadosPorPaisDTO
 import br.com.tagliaferrodev.samplerest.repositories.EstadoRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -62,6 +63,7 @@ class EstadoServiceTest : CRUDTestExecutor<Estado, EstadoService, EstadoReposito
 
         assertEquals(5, search.estados?.size)
         assertEquals(mainEntity.nome, search.estados?.get(0)?.nome)
+        assertEquals(EstadosPorPaisDTO::class, search::class)
     }
 
     @Test
