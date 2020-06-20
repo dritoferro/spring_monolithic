@@ -37,7 +37,7 @@ data class Jogador(
         val dataContratacao: LocalDate? = null,
 
         @Convert(converter = LocalDateConverter::class)
-        val dataDemissao: LocalDate? = null,
+        var dataDemissao: LocalDate? = null,
 
         val salario: Double? = null
 )

@@ -1,6 +1,7 @@
 package br.com.tagliaferrodev.samplerest.controllers
 
 import br.com.tagliaferrodev.samplerest.domain.Estado
+import br.com.tagliaferrodev.samplerest.domain.dto.enderecos.EstadosPorPaisDTO
 import br.com.tagliaferrodev.samplerest.services.EstadoService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -34,5 +35,10 @@ class EstadoController(val service: EstadoService) {
     @DeleteMapping("{id}")
     fun deleteEstado(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
+    }
+
+    @GetMapping("pais/{id}")
+    fun findEstadosByPais(@PathVariable id: Int): ResponseEntity<EstadosPorPaisDTO> {
+        return ResponseEntity.ok(service.findByPaisId(id))
     }
 }

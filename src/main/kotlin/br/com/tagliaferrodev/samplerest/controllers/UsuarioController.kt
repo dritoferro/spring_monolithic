@@ -18,7 +18,7 @@ class UsuarioController(val service: UsuarioService, private val jwtUtils: JWTUt
     fun addUser(@RequestBody @Valid usuario: CreateUserDTO): ResponseEntity<MessageResponseDTO> {
         val createdSuccessfully = service.save(usuario.fromDTO())
 
-        return if (createdSuccessfully) {
+        return if (createdSuccessfully.id != null) {
             ResponseEntity(MessageResponseDTO("Usuário criado com sucesso!"), HttpStatus.CREATED)
         } else {
             ResponseEntity(MessageResponseDTO("Erro ao criar o usuário, tente novamente mais tarde"), HttpStatus.BAD_REQUEST)
@@ -30,7 +30,7 @@ class UsuarioController(val service: UsuarioService, private val jwtUtils: JWTUt
         usuario.id = jwtUtils.getLoggedUserId()
         val updatedSuccessfully = service.update(usuario.fromDTO())
 
-        return if (updatedSuccessfully) {
+        return if (updatedSuccessfully.id != null) {
             ResponseEntity(MessageResponseDTO("Usuário atualizado com sucesso!"), HttpStatus.OK)
         } else {
             ResponseEntity(MessageResponseDTO("Erro ao criar o usuário, tente novamente mais tarde"), HttpStatus.BAD_REQUEST)

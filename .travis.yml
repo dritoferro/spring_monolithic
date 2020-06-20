@@ -1,5 +1,5 @@
 language: java
-script: "./gradlew build -x test"
+script: "./gradlew build"
 jdk: openjdk8
 deploy:
   - provider: heroku

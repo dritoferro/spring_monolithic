@@ -4,6 +4,7 @@ import br.com.tagliaferrodev.samplerest.domain.enums.Sexo
 import br.com.tagliaferrodev.samplerest.utils.converters.LocalDateConverter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDate
+import java.time.Period
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -42,4 +43,11 @@ data class Pessoa(
         @OneToOne(mappedBy = "pessoa")
         @JsonIgnore
         val jogador: Jogador? = null
-)
+) {
+    @delegate:kotlin.jvm.Transient
+    val idade: Int? by lazy {
+        dataNascimento?.let {
+            Period.between(dataNascimento, LocalDate.now()).years
+        }
+    }
+}
