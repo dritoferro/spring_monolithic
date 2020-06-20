@@ -5,11 +5,15 @@ import br.com.tagliaferrodev.samplerest.domain.Nacionalidade
 import br.com.tagliaferrodev.samplerest.domain.Pessoa
 import br.com.tagliaferrodev.samplerest.domain.enums.Sexo
 import br.com.tagliaferrodev.samplerest.repositories.PessoaRepository
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
+import java.util.*
 
 @ExtendWith(MockitoExtension::class)
 class PessoaServiceTest : CRUDTestExecutor<Pessoa, PessoaService, PessoaRepository>() {
@@ -62,4 +66,20 @@ class PessoaServiceTest : CRUDTestExecutor<Pessoa, PessoaService, PessoaReposito
     )
 
     override var mainEntityWithId = mainEntity.copy(id = mainEntityId)
+
+    @Test
+    fun getLastPessoaIdShouldReturnSuccessful() {
+        Mockito.`when`(repository.getLastPessoaId()).thenReturn(Optional.of(mainEntityId))
+
+        val search = service.findLastPessoaId()
+
+        Assertions.assertEquals(mainEntityId, search)
+    }
+
+    @Test
+    fun getLastPessoaIdShouldReturnZero() {
+        val search = service.findLastPessoaId()
+
+        Assertions.assertEquals(0, search)
+    }
 }

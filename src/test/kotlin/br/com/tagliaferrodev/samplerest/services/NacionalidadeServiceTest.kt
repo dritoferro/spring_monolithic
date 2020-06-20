@@ -64,7 +64,7 @@ class NacionalidadeServiceTest : CRUDTestExecutor<Nacionalidade, NacionalidadeSe
     }
 
     @Test
-    fun findByEstadoShouldReturnListOfMunicipios() {
+    fun findByPaisShouldReturnSuccessful() {
         Mockito.`when`(repository.findByPais_Id(1)).thenReturn(Optional.of(mainEntity))
 
         val search = service.findByPaisId(1)
@@ -74,7 +74,7 @@ class NacionalidadeServiceTest : CRUDTestExecutor<Nacionalidade, NacionalidadeSe
     }
 
     @Test
-    fun findByEstadoShouldThrowException() {
+    fun findByPaisShouldThrowException() {
         assertThrows<EntityNotFoundException> {
             service.findByPaisId(1)
         }
