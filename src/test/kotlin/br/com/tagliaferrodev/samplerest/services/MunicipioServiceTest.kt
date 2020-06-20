@@ -2,11 +2,18 @@ package br.com.tagliaferrodev.samplerest.services
 
 import br.com.tagliaferrodev.samplerest.domain.Estado
 import br.com.tagliaferrodev.samplerest.domain.Municipio
+import br.com.tagliaferrodev.samplerest.domain.dto.enderecos.MunicipiosPorEstadoDTO
 import br.com.tagliaferrodev.samplerest.repositories.MunicipioRepository
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import java.util.*
+import javax.persistence.EntityNotFoundException
 
 @ExtendWith(MockitoExtension::class)
 class MunicipioServiceTest : CRUDTestExecutor<Municipio, MunicipioService, MunicipioRepository>() {
@@ -41,4 +48,21 @@ class MunicipioServiceTest : CRUDTestExecutor<Municipio, MunicipioService, Munic
     )
 
     override var mainEntityWithId = mainEntity.copy(id = mainEntityId)
+
+    @Test
+    fun findByEstadoShouldReturnListOfMunicipios() {
+        `when`(repository.findAllByEstado_Id(1)).thenReturn(Optional.of(entities))
+
+        val search = service.findAllByEstado(1)
+
+        assertEquals(5, search.municipios.size)
+        assertEquals(MunicipiosPorEstadoDTO::class, search::class)
+    }
+
+    @Test
+    fun findByEstadoShouldThrowException() {
+        assertThrows<EntityNotFoundException> {
+            service.findAllByEstado(1)
+        }
+    }
 }
