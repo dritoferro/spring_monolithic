@@ -1,4 +1,4 @@
-package br.com.tagliaferrodev.samplerest.domain.dto
+package br.com.tagliaferrodev.samplerest.domain.dto.enderecos
 
 import br.com.tagliaferrodev.samplerest.domain.Municipio
 import com.fasterxml.jackson.annotation.JsonIgnore

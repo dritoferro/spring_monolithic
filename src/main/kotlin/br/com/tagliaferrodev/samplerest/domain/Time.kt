@@ -1,5 +1,6 @@
 package br.com.tagliaferrodev.samplerest.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -30,5 +31,12 @@ data class Time(
         val treinador: Pessoa? = null,
 
         @OneToMany(mappedBy = "time")
+        @JsonIgnore
         val jogadores: MutableList<Jogador>? = mutableListOf()
-)
+) {
+
+    @delegate:kotlin.jvm.Transient
+    val jogadoresAtivos: List<Jogador>? by lazy {
+        jogadores?.filter { it.dataDemissao == null }
+    }
+}

@@ -4,11 +4,16 @@ import br.com.tagliaferrodev.samplerest.domain.Nacionalidade
 import br.com.tagliaferrodev.samplerest.domain.Pais
 import br.com.tagliaferrodev.samplerest.repositories.NacionalidadeRepository
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
+import java.util.*
+import javax.persistence.EntityNotFoundException
 
 @ExtendWith(MockitoExtension::class)
 class NacionalidadeServiceTest : CRUDTestExecutor<Nacionalidade, NacionalidadeService, NacionalidadeRepository>() {
@@ -56,5 +61,22 @@ class NacionalidadeServiceTest : CRUDTestExecutor<Nacionalidade, NacionalidadeSe
 
         assertEquals(mainEntity.nomeMasculino, consulta?.nomeMasculino)
         assertEquals(mainEntity.nomeFeminino, consulta?.nomeFeminino)
+    }
+
+    @Test
+    fun findByPaisShouldReturnSuccessful() {
+        Mockito.`when`(repository.findByPais_Id(1)).thenReturn(Optional.of(mainEntity))
+
+        val search = service.findByPaisId(1)
+
+        assertNotNull(search)
+        assertEquals(mainEntity, search)
+    }
+
+    @Test
+    fun findByPaisShouldThrowException() {
+        assertThrows<EntityNotFoundException> {
+            service.findByPaisId(1)
+        }
     }
 }

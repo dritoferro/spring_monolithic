@@ -67,4 +67,20 @@ class JogadorGenerator(private val service: JogadorService,
 
         return jogadores
     }
+
+    fun generateJogadoresDispensados(timeId: Int) {
+        val time = timeService.findById(timeId)
+
+        (1..5).forEach {
+            val quantidade = Randoms.nextInt(3)
+            val posicao = Randoms.randomEntity(Posicao.values().toList())
+
+            val jogadores = generateJogadores(time, posicao, quantidade)
+
+            jogadores.forEach { jogador ->
+                jogador.dataDemissao = jogador.dataContratacao?.plusMonths(18)
+                service.save(jogador)
+            }
+        }
+    }
 }

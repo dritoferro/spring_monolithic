@@ -1,5 +1,7 @@
 package br.com.tagliaferrodev.samplerest.utils.generator
 
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.time.LocalDate
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
@@ -17,5 +19,9 @@ object Randoms {
         return LocalDate.ofEpochDay(rand)
     }
 
-    fun nextDouble(limit: Double) = ThreadLocalRandom.current().nextDouble(limit)
+    fun nextDouble(limit: Double): Double {
+        val rand = ThreadLocalRandom.current().nextDouble(limit)
+
+        return BigDecimal(rand).setScale(2, RoundingMode.HALF_UP).toDouble()
+    }
 }

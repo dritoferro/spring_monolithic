@@ -2,6 +2,8 @@ package br.com.tagliaferrodev.samplerest.controllers
 
 import br.com.tagliaferrodev.samplerest.domain.Jogador
 import br.com.tagliaferrodev.samplerest.domain.dto.jogador.JogadorDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.jogador.JogadorDispensadoTimeDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.jogador.JogadorWithTimeDTO
 import br.com.tagliaferrodev.samplerest.services.JogadorService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -35,5 +37,22 @@ class JogadorController(val service: JogadorService) {
     @DeleteMapping("{id}")
     fun deleteJogador(@PathVariable id: Int): ResponseEntity<Unit> {
         return ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT)
+    }
+
+    @GetMapping("dispensados/time/{id}")
+    fun getJogadoresDispensadosTime(@PathVariable id: Int): ResponseEntity<JogadorDispensadoTimeDTO> {
+        return ResponseEntity.ok(service.findJogadoresDispensadosTime(id))
+    }
+
+    @GetMapping("salarios")
+    fun getJogadoresWithSalario(@RequestParam("min") min: Double,
+                                @RequestParam("max") max: Double): ResponseEntity<List<JogadorWithTimeDTO>> {
+        return ResponseEntity.ok(service.findBySalarioIn(min, max))
+    }
+
+    @GetMapping("idade")
+    fun getJogadoresWithIdade(@RequestParam("min") min: Long,
+                              @RequestParam("max") max: Long): ResponseEntity<List<JogadorWithTimeDTO>> {
+        return ResponseEntity.ok(service.findByIdadeIn(min, max))
     }
 }

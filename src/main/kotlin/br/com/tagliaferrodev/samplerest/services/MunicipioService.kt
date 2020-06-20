@@ -1,9 +1,9 @@
 package br.com.tagliaferrodev.samplerest.services
 
 import br.com.tagliaferrodev.samplerest.domain.Municipio
-import br.com.tagliaferrodev.samplerest.domain.dto.EstadoDTO
-import br.com.tagliaferrodev.samplerest.domain.dto.MunicipioDTO
-import br.com.tagliaferrodev.samplerest.domain.dto.MunicipiosPorEstadoDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.enderecos.EstadoDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.enderecos.MunicipioDTO
+import br.com.tagliaferrodev.samplerest.domain.dto.enderecos.MunicipiosPorEstadoDTO
 import br.com.tagliaferrodev.samplerest.repositories.MunicipioRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
